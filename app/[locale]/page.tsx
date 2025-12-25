@@ -19,9 +19,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <Link className="text-sm font-medium hover:text-primary transition-colors" href={`/${locale}/login`}>
             Sign In
           </Link>
-          <Link className="text-sm font-medium hover:text-primary transition-colors" href={`/${locale}/login`}>
-            Register
-          </Link>
         </nav>
       </header>
       <main className="flex-1">
@@ -85,11 +82,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
         <p className="text-xs text-muted-foreground">© 2025 Next Seeker. Proudly built for career seekers.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
-            Terms of Service
+          <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/pricing`}>
+            Pricing
           </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="#">
+          <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/terms-and-conditions`}>
+            Terms
+          </Link>
+          <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/privacy-policy`}>
             Privacy
+          </Link>
+          <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/refund-policy`}>
+            Refund
           </Link>
         </nav>
       </footer>

@@ -104,5 +104,49 @@
         "dangerZone": "Danger Zone",
         "dangerZoneDesc": "Permanent actions regarding your account.",
         "deleteAccount": "Delete Account & Data"
+    },
+    "Privacy": {
+        "title": "Privacy Policy",
+        "lastUpdated": "Last Updated: December 25, 2025",
+        "intro": "At Next Seeker, we take your privacy seriously. This policy explains how we collect, use, and protect your information."
+    },
+    "Terms": {
+        "title": "Terms and Conditions",
+        "lastUpdated": "Last Updated: December 25, 2025",
+        "intro": "By using Next Seeker, you agree to the following terms and conditions. Please read them carefully."
+    },
+    "Refund": {
+        "title": "Refund Policy",
+        "lastUpdated": "Last Updated: December 25, 2025",
+        "intro": "We want you to be happy with Next Seeker. If you are not satisfied, please read our refund policy below."
+    },
+    "Pricing": {
+        "title": "Simple, Transparent Pricing",
+        "subtitle": "Choose the plan that's right for your career journey.",
+        "free": {
+            "name": "Free",
+            "price": "$0",
+            "description": "Perfect for getting started with your job search.",
+            "features": [
+                "Up to 10 Job Applications",
+                "Basic Career Goals Tracking",
+                "Interview Preparation Workspace",
+                "Dashboard Overview"
+            ]
+        },
+        "premium": {
+            "name": "Unlimited Premium",
+            "price": "$6",
+            "period": "one-time",
+            "description": "Unlock everything and take control of your career.",
+            "features": [
+                "Unlimited Job Applications",
+                "Advanced Career Goals Tracking",
+                "Priority Support",
+                "Lifetime Access"
+            ]
+        },
+        "cta": "Get Started",
+        "upgrade": "Upgrade Now"
     }
 }

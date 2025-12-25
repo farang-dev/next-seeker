@@ -5,7 +5,10 @@ export type Profile = {
     avatar_url: string | null;
     preferred_language: 'en' | 'ja';
     theme_preference: 'light' | 'dark' | 'system';
+    has_premium: boolean;
+    stripe_customer_id: string | null;
 };
+
 
 export type CareerGoalType = '3-year' | '5-year' | '10-year';
 
