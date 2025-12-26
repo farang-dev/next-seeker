@@ -119,6 +119,7 @@ export default async function PricingPage({
                         <Link className="text-xs hover:underline" href={`/${locale}/terms-and-conditions`}>Terms</Link>
                         <Link className="text-xs hover:underline" href={`/${locale}/privacy-policy`}>Privacy</Link>
                         <Link className="text-xs hover:underline" href={`/${locale}/refund-policy`}>Refund</Link>
+                        <Link className="text-xs hover:underline" href={`/${locale}/specified-commercial-transactions`}>Commercial</Link>
                     </nav>
                 </div>
             </footer>

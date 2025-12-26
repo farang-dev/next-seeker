@@ -94,6 +94,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/refund-policy`}>
             Refund
           </Link>
+          <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/specified-commercial-transactions`}>
+            Commercial
+          </Link>
         </nav>
       </footer>
     </div>

@@ -148,5 +148,28 @@
         },
         "cta": "Get Started",
         "upgrade": "Upgrade Now"
+    },
+    "Commercial": {
+        "title": "Specified Commercial Transactions Act",
+        "distributor": "Distributor",
+        "distributorValue": "Fumi Nozawa",
+        "representative": "Representative",
+        "representativeValue": "Fumi Nozawa",
+        "address": "Address",
+        "addressValue": "1-9-10, Sangenjaya, Setagaya-ku, Tokyo, Japan",
+        "phone": "Phone Number",
+        "phoneValue": "+81 80-4118-5474",
+        "email": "Email Address",
+        "emailValue": "support@nextseeker.com",
+        "fees": "Additional Charges",
+        "feesValue": "Internet connection fees and other telecommunication costs are the responsibility of the customer.",
+        "paymentMethod": "Payment Method",
+        "paymentMethodValue": "Credit Card",
+        "paymentTiming": "Payment Timing",
+        "paymentTimingValue": "Payment is processed at the time of purchase.",
+        "deliveryTiming": "Delivery Timing",
+        "deliveryTimingValue": "Services are available immediately after purchase completion.",
+        "returns": "Returns and Cancellations",
+        "returnsValue": "Due to the nature of digital contents, returns and cancellations are generally not accepted after purchase."
     }
 }

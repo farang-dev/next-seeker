@@ -147,5 +147,28 @@
         },
         "cta": "始める",
         "upgrade": "今すぐアップグレード"
+    },
+    "Commercial": {
+        "title": "特定商取引法に基づく表記",
+        "distributor": "販売業者",
+        "distributorValue": "Fumi Nozawa",
+        "representative": "運営責任者",
+        "representativeValue": "Fumi Nozawa",
+        "address": "所在地",
+        "addressValue": "東京都世田谷区三軒茶屋1-9-10",
+        "phone": "電話番号",
+        "phoneValue": "080-4118-5474",
+        "email": "メールアドレス",
+        "emailValue": "support@nextseeker.com",
+        "fees": "商品代金以外の必要料金",
+        "feesValue": "インターネット接続料金その他の電気通信回線の通信に関する費用はお客様の負担となります。",
+        "paymentMethod": "お支払方法",
+        "paymentMethodValue": "クレジットカード決済",
+        "paymentTiming": "代金の支払時期",
+        "paymentTimingValue": "購入時に決済されます。",
+        "deliveryTiming": "商品の引渡し時期",
+        "deliveryTimingValue": "購入完了後、即時にサービスをご利用いただけます。",
+        "returns": "返品・キャンセル",
+        "returnsValue": "デジタルコンテンツという性質上、原則として購入後の返品・キャンセルには応じられません。"
     }
 }

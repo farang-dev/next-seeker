@@ -69,6 +69,7 @@ export default async function PrivacyPage({
                         <Link className="hover:underline" href={`/${locale}/terms-and-conditions`}>Terms</Link>
                         <Link className="hover:underline" href={`/${locale}/privacy-policy`}>Privacy</Link>
                         <Link className="hover:underline" href={`/${locale}/refund-policy`}>Refund</Link>
+                        <Link className="hover:underline" href={`/${locale}/specified-commercial-transactions`}>Commercial</Link>
                     </nav>
                 </div>
             </footer>

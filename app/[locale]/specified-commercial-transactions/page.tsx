@@ -2,13 +2,26 @@ import { Target } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
-export default async function RefundPage({
+export default async function CommercialTransactionsPage({
     params,
 }: {
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = await params;
-    const t = await getTranslations("Refund");
+    const t = await getTranslations("Commercial");
+
+    const fields = [
+        { label: t("distributor"), value: t("distributorValue") },
+        { label: t("representative"), value: t("representativeValue") },
+        { label: t("address"), value: t("addressValue") },
+        { label: t("phone"), value: t("phoneValue") },
+        { label: t("email"), value: t("emailValue") },
+        { label: t("fees"), value: t("feesValue") },
+        { label: t("paymentMethod"), value: t("paymentMethodValue") },
+        { label: t("paymentTiming"), value: t("paymentTimingValue") },
+        { label: t("deliveryTiming"), value: t("deliveryTimingValue") },
+        { label: t("returns"), value: t("returnsValue") },
+    ];
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -25,33 +38,19 @@ export default async function RefundPage({
                 <div className="container px-4 md:px-6 mx-auto max-w-3xl">
                     <div className="space-y-4 mb-12 border-b pb-8">
                         <h1 className="text-4xl font-bold tracking-tight">{t("title")}</h1>
-                        <p className="text-muted-foreground">{t("lastUpdated")}</p>
                     </div>
 
-                    <div className="prose prose-slate dark:prose-invert max-w-none space-y-8 text-muted-foreground leading-relaxed">
-                        <section className="space-y-4">
-                            <p>{t("intro")}</p>
-                        </section>
-
-                        <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">1. Refund Eligibility</h2>
-                            <p>We offer a 14-day money-back guarantee for our Unlimited Premium plan if you are not satisfied with the service. To be eligible for a refund, you must submit your request within 14 days of your purchase.</p>
-                        </section>
-
-                        <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">2. Process for Refunds</h2>
-                            <p>To request a refund, please email us at support@nextseeker.com with your account details and the reason for your request. We will process your refund within 5-10 business days.</p>
-                        </section>
-
-                        <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">3. Non-refundable Situations</h2>
-                            <p>Requests made after the 14-day window are generally not eligible for a refund. Additionally, accounts that have violated our Terms of Service are not eligible for refunds.</p>
-                        </section>
-
-                        <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">4. Changes to This Policy</h2>
-                            <p>We reserve the right to modify this refund policy at any time. Changes will be effective immediately upon posting to this page.</p>
-                        </section>
+                    <div className="space-y-8">
+                        {fields.map((field, index) => (
+                            <section key={index} className="space-y-2 border-b pb-4 last:border-0">
+                                <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                                    {field.label}
+                                </h2>
+                                <p className="text-lg text-foreground whitespace-pre-wrap">
+                                    {field.value}
+                                </p>
+                            </section>
+                        ))}
                     </div>
                 </div>
             </main>
