@@ -151,25 +151,34 @@
     },
     "Commercial": {
         "title": "Specified Commercial Transactions Act",
-        "distributor": "Distributor",
+        "distributor": "Business Name",
         "distributorValue": "Fumi Nozawa",
         "representative": "Representative",
         "representativeValue": "Fumi Nozawa",
         "address": "Address",
         "addressValue": "1-9-10, Sangenjaya, Setagaya-ku, Tokyo, Japan",
         "phone": "Phone Number",
-        "phoneValue": "+81 80-4118-5474",
+        "phoneValue": "+81 80-4118-5474 (Hours: 10:00-18:00 JST, excluding weekends/holidays)",
         "email": "Email Address",
         "emailValue": "support@nextseeker.com",
+        "price": "Sales Price",
+        "priceValue": "Amount listed on each plan's application page (prices include tax)",
         "fees": "Additional Charges",
         "feesValue": "Internet connection fees and other telecommunication costs are the responsibility of the customer.",
         "paymentMethod": "Payment Method",
         "paymentMethodValue": "Credit Card",
         "paymentTiming": "Payment Timing",
-        "paymentTimingValue": "Payment is processed at the time of purchase.",
+        "paymentTimingValue": "Processed on the billing date of each credit card company.",
         "deliveryTiming": "Delivery Timing",
         "deliveryTimingValue": "Services are available immediately after purchase completion.",
         "returns": "Returns and Cancellations",
-        "returnsValue": "Due to the nature of digital contents, returns and cancellations are generally not accepted after purchase."
+        "returnsValue": "[Customer Convenience]\nDue to the nature of digital contents and services, returns and cancellations are not accepted after purchase.\n\n[Service Defects]\nIn the unlikely event of a service defect, please contact us at the email address above. We will investigate and respond accordingly."
+    },
+    "Footer": {
+        "pricing": "Pricing",
+        "terms": "Terms",
+        "privacy": "Privacy",
+        "refund": "Refund",
+        "commercial": "Specified Commercial Transactions Act"
     }
 }

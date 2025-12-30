@@ -150,25 +150,34 @@
     },
     "Commercial": {
         "title": "特定商取引法に基づく表記",
-        "distributor": "販売業者",
+        "distributor": "事業者名",
         "distributorValue": "Fumi Nozawa",
         "representative": "運営責任者",
         "representativeValue": "Fumi Nozawa",
         "address": "所在地",
         "addressValue": "東京都世田谷区三軒茶屋1-9-10",
         "phone": "電話番号",
-        "phoneValue": "080-4118-5474",
+        "phoneValue": "080-4118-5474（受付時間：10:00〜18:00 土日祝を除く）",
         "email": "メールアドレス",
         "emailValue": "support@nextseeker.com",
+        "price": "販売価格",
+        "priceValue": "各プランの申し込みページに表示された金額（表示価格は消費税込み）",
         "fees": "商品代金以外の必要料金",
-        "feesValue": "インターネット接続料金その他の電気通信回線の通信に関する費用はお客様の負担となります。",
+        "feesValue": "インターネット接続料金、通信料金等はお客様の負担となります。",
         "paymentMethod": "お支払方法",
         "paymentMethodValue": "クレジットカード決済",
         "paymentTiming": "代金の支払時期",
-        "paymentTimingValue": "購入時に決済されます。",
-        "deliveryTiming": "商品の引渡し時期",
-        "deliveryTimingValue": "購入完了後、即時にサービスをご利用いただけます。",
-        "returns": "返品・キャンセル",
-        "returnsValue": "デジタルコンテンツという性質上、原則として購入後の返品・キャンセルには応じられません。"
+        "paymentTimingValue": "各カード会社の引き落とし日",
+        "deliveryTiming": "サービスの提供時期",
+        "deliveryTimingValue": "決済完了後、直ちにご利用いただけます。",
+        "returns": "返品・キャンセルについて",
+        "returnsValue": "＜お客様都合の返品・キャンセル＞\nデジタルコンテンツおよびサービスの性質上、決済完了後の返品・キャンセルはお受けしておりません。\n\n＜サービスに不備がある場合＞\n万が一、サービスに不備がございましたら、上記メールアドレスまでご連絡ください。内容を確認の上、対応させていただきます。"
+    },
+    "Footer": {
+        "pricing": "料金プラン",
+        "terms": "利用規約",
+        "privacy": "プライバシー情報",
+        "refund": "返金ポリシー",
+        "commercial": "特定商取引法に基づく表記"
     }
 }

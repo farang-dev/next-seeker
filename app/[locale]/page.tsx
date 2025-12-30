@@ -1,10 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Target, Briefcase, TrendingUp, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  const t = await getTranslations("Footer");
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -83,19 +84,19 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <p className="text-xs text-muted-foreground">© 2025 Next Seeker. Proudly built for career seekers.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/pricing`}>
-            Pricing
+            {t('pricing')}
           </Link>
           <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/terms-and-conditions`}>
-            Terms
+            {t('terms')}
           </Link>
           <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/privacy-policy`}>
-            Privacy
+            {t('privacy')}
           </Link>
           <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/refund-policy`}>
-            Refund
+            {t('refund')}
           </Link>
           <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/specified-commercial-transactions`}>
-            Commercial
+            {t('commercial')}
           </Link>
         </nav>
       </footer>

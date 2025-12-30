@@ -9,6 +9,7 @@ export default async function CommercialTransactionsPage({
 }) {
     const { locale } = await params;
     const t = await getTranslations("Commercial");
+    const tFooter = await getTranslations("Footer");
 
     const fields = [
         { label: t("distributor"), value: t("distributorValue") },
@@ -16,6 +17,7 @@ export default async function CommercialTransactionsPage({
         { label: t("address"), value: t("addressValue") },
         { label: t("phone"), value: t("phoneValue") },
         { label: t("email"), value: t("emailValue") },
+        { label: t("price"), value: t("priceValue") },
         { label: t("fees"), value: t("feesValue") },
         { label: t("paymentMethod"), value: t("paymentMethodValue") },
         { label: t("paymentTiming"), value: t("paymentTimingValue") },
@@ -59,11 +61,11 @@ export default async function CommercialTransactionsPage({
                 <div className="container px-4 md:px-6 mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
                     <p>© 2025 Next Seeker. All rights reserved.</p>
                     <nav className="flex gap-4 sm:gap-6">
-                        <Link className="hover:underline" href={`/${locale}/pricing`}>Pricing</Link>
-                        <Link className="hover:underline" href={`/${locale}/terms-and-conditions`}>Terms</Link>
-                        <Link className="hover:underline" href={`/${locale}/privacy-policy`}>Privacy</Link>
-                        <Link className="hover:underline" href={`/${locale}/refund-policy`}>Refund</Link>
-                        <Link className="hover:underline" href={`/${locale}/specified-commercial-transactions`}>Commercial</Link>
+                        <Link className="hover:underline" href={`/${locale}/pricing`}>{tFooter('pricing')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/terms-and-conditions`}>{tFooter('terms')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/privacy-policy`}>{tFooter('privacy')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/refund-policy`}>{tFooter('refund')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/specified-commercial-transactions`}>{tFooter('commercial')}</Link>
                     </nav>
                 </div>
             </footer>
