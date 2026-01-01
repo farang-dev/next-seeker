@@ -3,13 +3,15 @@ import { redirect } from 'next/navigation';
 import { CheckCircle2, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { VerifyPayment } from './verify-payment';
 
-export default async function PaymentSuccessPage() {
+export default async function PaymentSuccessPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-        redirect('/login');
+        redirect(`/${locale}/login`);
     }
 
     // Verify premium status
@@ -38,6 +40,7 @@ export default async function PaymentSuccessPage() {
                     <p className="text-lg text-muted-foreground">
                         Your payment was successful and premium access has been activated.
                     </p>
+                    <VerifyPayment />
                 </div>
 
                 <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 rounded-lg p-6 border-2 border-amber-200 dark:border-amber-800">
@@ -66,7 +69,7 @@ export default async function PaymentSuccessPage() {
                 </div>
 
                 <div className="pt-4 space-y-3">
-                    <Link href="/dashboard/applications">
+                    <Link href={`/${locale}/dashboard/applications`}>
                         <Button
                             size="lg"
                             className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold"
@@ -74,7 +77,7 @@ export default async function PaymentSuccessPage() {
                             Start Adding Applications
                         </Button>
                     </Link>
-                    <Link href="/dashboard">
+                    <Link href={`/${locale}/dashboard`}>
                         <Button variant="outline" size="lg" className="w-full">
                             Go to Dashboard
                         </Button>
