@@ -1,8 +1,18 @@
 import { type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
+import createMiddleware from 'next-intl/middleware';
+import { locales, defaultLocale } from '@/i18n/settings';
+
+const intlMiddleware = createMiddleware({
+    locales,
+    defaultLocale,
+    localePrefix: 'always'
+});
+
 export async function middleware(request: NextRequest) {
-    return await updateSession(request)
+    const response = intlMiddleware(request);
+    return await updateSession(request, response);
 }
 
 export const config = {
