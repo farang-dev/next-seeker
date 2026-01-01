@@ -12,6 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Lock, Sparkles, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
+import { useLocale } from 'next-intl';
 
 interface PaywallDialogProps {
     open: boolean;
@@ -21,6 +22,8 @@ interface PaywallDialogProps {
 export function PaywallDialog({ open, onOpenChange }: PaywallDialogProps) {
     const [loading, setLoading] = useState(false);
 
+    const locale = useLocale();
+
     const handleUpgrade = async () => {
         setLoading(true);
         try {
@@ -29,6 +32,10 @@ export function PaywallDialog({ open, onOpenChange }: PaywallDialogProps) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify({
+                    locale,
+                    returnPath: window.location.pathname,
+                }),
             });
 
             const data = await response.json();

@@ -59,6 +59,18 @@ export async function POST(req: NextRequest) {
                 .eq('id', user.id);
         }
 
+        // Parse request body for locale and return path
+        let locale = 'en';
+        let returnPath = '/dashboard/applications';
+
+        try {
+            const body = await req.json();
+            if (body.locale) locale = body.locale;
+            if (body.returnPath) returnPath = body.returnPath;
+        } catch (e) {
+            // Body might be empty, use defaults
+        }
+
         // Create Checkout Session
         const session = await stripe.checkout.sessions.create({
             customer: customerId,
@@ -77,8 +89,8 @@ export async function POST(req: NextRequest) {
                     quantity: 1,
                 },
             ],
-            success_url: `${req.headers.get('origin')}/dashboard/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${req.headers.get('origin')}/dashboard/applications`,
+            success_url: `${req.headers.get('origin')}/${locale}/dashboard/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${req.headers.get('origin')}${returnPath}`,
             metadata: {
                 user_id: user.id,
             },
