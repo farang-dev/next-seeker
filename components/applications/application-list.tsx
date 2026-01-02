@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, MoreHorizontal, Download, Trash2 } from 'lucide-react';
+import { Search, MoreHorizontal, Download, Trash2, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -46,18 +46,56 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
     const [selectedApps, setSelectedApps] = useState<Set<string>>(new Set());
     const [isDeleting, setIsDeleting] = useState(false);
     const [isSelectionMode, setIsSelectionMode] = useState(false);
+    const [sortConfig, setSortConfig] = useState<{ key: 'status' | 'priority' | 'date' | null, direction: 'asc' | 'desc' }>({ key: null, direction: 'asc' });
 
     const router = useRouter();
     const t = useTranslations('Applications');
     const supabase = createClient();
 
-    const filteredApps = applications.filter((app) => {
+    const statusOrder: Record<ApplicationStatus, number> = {
+        'Draft': 1,
+        'Applied': 2,
+        'Interview': 3,
+        'Offer': 4,
+        'Rejected': 5,
+        'Archived': 6
+    };
+
+    const priorityOrder: Record<ApplicationPriority, number> = {
+        'High': 3,
+        'Medium': 2,
+        'Low': 1
+    };
+
+    const filteredApps = [...applications].filter((app) => {
         const matchesSearch = app.company_name.toLowerCase().includes(search.toLowerCase()) ||
             app.job_title.toLowerCase().includes(search.toLowerCase());
         const matchesStatus = statusFilter === 'all' || app.status === statusFilter;
         const matchesPriority = priorityFilter === 'all' || app.priority === priorityFilter;
         return matchesSearch && matchesStatus && matchesPriority;
+    }).sort((a, b) => {
+        if (!sortConfig.key) return 0;
+
+        const direction = sortConfig.direction === 'asc' ? 1 : -1;
+
+        if (sortConfig.key === 'status') {
+            return (statusOrder[a.status] - statusOrder[b.status]) * direction;
+        }
+        if (sortConfig.key === 'priority') {
+            return (priorityOrder[a.priority] - priorityOrder[b.priority]) * direction;
+        }
+        if (sortConfig.key === 'date') {
+            return (new Date(a.application_date).getTime() - new Date(b.application_date).getTime()) * direction;
+        }
+        return 0;
     });
+
+    const toggleSort = (key: 'status' | 'priority' | 'date') => {
+        setSortConfig((prev) => ({
+            key,
+            direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc'
+        }));
+    };
 
     const getStatusColor = (status: ApplicationStatus) => {
         switch (status) {
@@ -235,9 +273,45 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                                 />
                             </TableHead>
                             <TableHead className="min-w-[200px]">{t('company')} & {t('role')}</TableHead>
-                            <TableHead>{t('status')}</TableHead>
-                            <TableHead>{t('priority')}</TableHead>
-                            <TableHead>{t('date')}</TableHead>
+                            <TableHead
+                                className="cursor-pointer hover:bg-muted/50 transition-colors group/head"
+                                onClick={() => toggleSort('status')}
+                            >
+                                <div className="flex items-center gap-1">
+                                    {t('status')}
+                                    {sortConfig.key === 'status' ? (
+                                        sortConfig.direction === 'asc' ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />
+                                    ) : (
+                                        <ArrowUpDown className="w-4 h-4 opacity-0 group-hover/head:opacity-50 transition-opacity" />
+                                    )}
+                                </div>
+                            </TableHead>
+                            <TableHead
+                                className="cursor-pointer hover:bg-muted/50 transition-colors group/head"
+                                onClick={() => toggleSort('priority')}
+                            >
+                                <div className="flex items-center gap-1">
+                                    {t('priority')}
+                                    {sortConfig.key === 'priority' ? (
+                                        sortConfig.direction === 'asc' ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />
+                                    ) : (
+                                        <ArrowUpDown className="w-4 h-4 opacity-0 group-hover/head:opacity-50 transition-opacity" />
+                                    )}
+                                </div>
+                            </TableHead>
+                            <TableHead
+                                className="cursor-pointer hover:bg-muted/50 transition-colors group/head"
+                                onClick={() => toggleSort('date')}
+                            >
+                                <div className="flex items-center gap-1">
+                                    {t('date')}
+                                    {sortConfig.key === 'date' ? (
+                                        sortConfig.direction === 'asc' ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />
+                                    ) : (
+                                        <ArrowUpDown className="w-4 h-4 opacity-0 group-hover/head:opacity-50 transition-opacity" />
+                                    )}
+                                </div>
+                            </TableHead>
                             <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
