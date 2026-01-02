@@ -46,7 +46,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
     const [selectedApps, setSelectedApps] = useState<Set<string>>(new Set());
     const [isDeleting, setIsDeleting] = useState(false);
     const [isSelectionMode, setIsSelectionMode] = useState(false);
-    const [sortConfig, setSortConfig] = useState<{ key: 'status' | 'priority' | 'date' | null, direction: 'asc' | 'desc' }>({ key: null, direction: 'asc' });
+    const [sortConfig, setSortConfig] = useState<{ key: 'company' | 'status' | 'priority' | 'date' | null, direction: 'asc' | 'desc' }>({ key: null, direction: 'asc' });
 
     const router = useRouter();
     const t = useTranslations('Applications');
@@ -78,6 +78,9 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
 
         const direction = sortConfig.direction === 'asc' ? 1 : -1;
 
+        if (sortConfig.key === 'company') {
+            return a.company_name.localeCompare(b.company_name) * direction;
+        }
         if (sortConfig.key === 'status') {
             return (statusOrder[a.status] - statusOrder[b.status]) * direction;
         }
@@ -90,7 +93,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
         return 0;
     });
 
-    const toggleSort = (key: 'status' | 'priority' | 'date') => {
+    const toggleSort = (key: 'company' | 'status' | 'priority' | 'date') => {
         setSortConfig((prev) => ({
             key,
             direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc'
@@ -257,7 +260,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
             </div>
 
             <div className="rounded-md border bg-card overflow-x-auto">
-                <Table className="min-w-[800px]">
+                <Table className="min-w-[900px] table-fixed">
                     <TableHeader>
                         <TableRow>
                             <TableHead
@@ -272,47 +275,60 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                                     className={cn(!isSelectionMode && "hidden")}
                                 />
                             </TableHead>
-                            <TableHead className="min-w-[200px]">{t('company')} & {t('role')}</TableHead>
                             <TableHead
-                                className="cursor-pointer hover:bg-muted/50 transition-colors group/head"
+                                className="w-56 cursor-pointer hover:bg-muted/50 transition-colors group/head"
+                                onClick={() => toggleSort('company')}
+                            >
+                                <div className="flex items-center gap-1">
+                                    {t('company')}
+                                    {sortConfig.key === 'company' ? (
+                                        sortConfig.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-primary" /> : <ArrowDown className="w-3 h-3 text-primary" />
+                                    ) : (
+                                        <ArrowUpDown className="w-3 h-3 opacity-0 group-hover/head:opacity-50 transition-opacity" />
+                                    )}
+                                </div>
+                            </TableHead>
+                            <TableHead className="w-56">{t('role')}</TableHead>
+                            <TableHead
+                                className="w-28 cursor-pointer hover:bg-muted/50 transition-colors group/head"
                                 onClick={() => toggleSort('status')}
                             >
                                 <div className="flex items-center gap-1">
                                     {t('status')}
                                     {sortConfig.key === 'status' ? (
-                                        sortConfig.direction === 'asc' ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />
+                                        sortConfig.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-primary" /> : <ArrowDown className="w-3 h-3 text-primary" />
                                     ) : (
-                                        <ArrowUpDown className="w-4 h-4 opacity-0 group-hover/head:opacity-50 transition-opacity" />
+                                        <ArrowUpDown className="w-3 h-3 opacity-0 group-hover/head:opacity-50 transition-opacity" />
                                     )}
                                 </div>
                             </TableHead>
                             <TableHead
-                                className="cursor-pointer hover:bg-muted/50 transition-colors group/head"
+                                className="w-28 cursor-pointer hover:bg-muted/50 transition-colors group/head"
                                 onClick={() => toggleSort('priority')}
                             >
                                 <div className="flex items-center gap-1">
                                     {t('priority')}
                                     {sortConfig.key === 'priority' ? (
-                                        sortConfig.direction === 'asc' ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />
+                                        sortConfig.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-primary" /> : <ArrowDown className="w-3 h-3 text-primary" />
                                     ) : (
-                                        <ArrowUpDown className="w-4 h-4 opacity-0 group-hover/head:opacity-50 transition-opacity" />
+                                        <ArrowUpDown className="w-3 h-3 opacity-0 group-hover/head:opacity-50 transition-opacity" />
                                     )}
                                 </div>
                             </TableHead>
                             <TableHead
-                                className="cursor-pointer hover:bg-muted/50 transition-colors group/head"
+                                className="w-32 cursor-pointer hover:bg-muted/50 transition-colors group/head"
                                 onClick={() => toggleSort('date')}
                             >
                                 <div className="flex items-center gap-1">
                                     {t('date')}
                                     {sortConfig.key === 'date' ? (
-                                        sortConfig.direction === 'asc' ? <ArrowUp className="w-4 h-4" /> : <ArrowDown className="w-4 h-4" />
+                                        sortConfig.direction === 'asc' ? <ArrowUp className="w-3 h-3 text-primary" /> : <ArrowDown className="w-3 h-3 text-primary" />
                                     ) : (
-                                        <ArrowUpDown className="w-4 h-4 opacity-0 group-hover/head:opacity-50 transition-opacity" />
+                                        <ArrowUpDown className="w-3 h-3 opacity-0 group-hover/head:opacity-50 transition-opacity" />
                                     )}
                                 </div>
                             </TableHead>
-                            <TableHead className="text-right">Actions</TableHead>
+                            <TableHead className="w-20 text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -337,21 +353,21 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                                             className={cn(!isSelectionMode && "hidden")}
                                         />
                                     </TableCell>
-                                    <TableCell>
-                                        <div className="flex flex-col">
-                                            <span className="font-semibold group-hover:text-primary transition-colors">{app.company_name}</span>
-                                            <span className="text-sm text-muted-foreground">{app.job_title}</span>
-                                        </div>
+                                    <TableCell className="font-semibold truncate">
+                                        {app.company_name}
+                                    </TableCell>
+                                    <TableCell className="text-muted-foreground truncate">
+                                        {app.job_title}
                                     </TableCell>
                                     <TableCell>
-                                        <Badge variant="outline" className={getStatusColor(app.status)}>
+                                        <Badge variant="outline" className={cn("px-2 py-0 h-5", getStatusColor(app.status))}>
                                             {app.status}
                                         </Badge>
                                     </TableCell>
                                     <TableCell>
-                                        <span className={getPriorityColor(app.priority)}>{app.priority}</span>
+                                        <span className={cn(getPriorityColor(app.priority))}>{app.priority}</span>
                                     </TableCell>
-                                    <TableCell className="text-muted-foreground text-sm">
+                                    <TableCell className="text-muted-foreground whitespace-nowrap">
                                         {new Date(app.application_date).toLocaleDateString()}
                                     </TableCell>
                                     <TableCell className="text-right">
