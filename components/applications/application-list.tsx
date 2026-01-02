@@ -36,6 +36,7 @@ import { useTranslations } from 'next-intl';
 import { Checkbox } from '@/components/ui/checkbox';
 import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
 
 export function ApplicationList({ applications, locale }: { applications: JobApplication[], locale: string }) {
     const [search, setSearch] = useState('');
@@ -217,19 +218,23 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                 </div>
             </div>
 
-            <div className="rounded-md border bg-card overflow-hidden">
-                <Table>
+            <div className="rounded-md border bg-card overflow-x-auto">
+                <Table className="min-w-[800px]">
                     <TableHeader>
                         <TableRow>
-                            {isSelectionMode && (
-                                <TableHead className="w-[40px]">
-                                    <Checkbox
-                                        checked={filteredApps.length > 0 && selectedApps.size === filteredApps.length}
-                                        onCheckedChange={toggleAll}
-                                    />
-                                </TableHead>
-                            )}
-                            <TableHead className="w-[250px]">{t('company')} & {t('role')}</TableHead>
+                            <TableHead
+                                className={cn(
+                                    "transition-all duration-300 ease-in-out p-0",
+                                    isSelectionMode ? "w-12 px-4 opacity-100" : "w-0 opacity-0 overflow-hidden"
+                                )}
+                            >
+                                <Checkbox
+                                    checked={filteredApps.length > 0 && selectedApps.size === filteredApps.length}
+                                    onCheckedChange={toggleAll}
+                                    className={cn(!isSelectionMode && "hidden")}
+                                />
+                            </TableHead>
+                            <TableHead className="min-w-[200px]">{t('company')} & {t('role')}</TableHead>
                             <TableHead>{t('status')}</TableHead>
                             <TableHead>{t('priority')}</TableHead>
                             <TableHead>{t('date')}</TableHead>
@@ -245,14 +250,19 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                                     onClick={() => router.push(`/${locale}/dashboard/applications/${app.id}`)}
                                     data-state={selectedApps.has(app.id) ? "selected" : undefined}
                                 >
-                                    {isSelectionMode && (
-                                        <TableCell onClick={(e) => e.stopPropagation()}>
-                                            <Checkbox
-                                                checked={selectedApps.has(app.id)}
-                                                onCheckedChange={() => toggleSelection(app.id)}
-                                            />
-                                        </TableCell>
-                                    )}
+                                    <TableCell
+                                        onClick={(e) => e.stopPropagation()}
+                                        className={cn(
+                                            "transition-all duration-300 ease-in-out p-0",
+                                            isSelectionMode ? "w-12 px-4 opacity-100" : "w-0 opacity-0 overflow-hidden"
+                                        )}
+                                    >
+                                        <Checkbox
+                                            checked={selectedApps.has(app.id)}
+                                            onCheckedChange={() => toggleSelection(app.id)}
+                                            className={cn(!isSelectionMode && "hidden")}
+                                        />
+                                    </TableCell>
                                     <TableCell>
                                         <div className="flex flex-col">
                                             <span className="font-semibold group-hover:text-primary transition-colors">{app.company_name}</span>
@@ -300,7 +310,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={isSelectionMode ? 6 : 5} className="h-24 text-center text-muted-foreground">
+                                <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
                                     {t('empty')}
                                 </TableCell>
                             </TableRow>

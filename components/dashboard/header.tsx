@@ -14,8 +14,9 @@ import {
 import { User } from '@supabase/supabase-js';
 import { User as UserIcon, LogOut, Moon, Sun } from 'lucide-react';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
-export function Header({ user }: { user: User }) {
+export function Header({ user, locale }: { user: User, locale: string }) {
     const router = useRouter();
     const supabase = createClient();
 
@@ -26,7 +27,9 @@ export function Header({ user }: { user: User }) {
 
     return (
         <header className="h-16 border-b flex items-center justify-between px-8 bg-background/50 backdrop-blur-sm sticky top-0 z-30">
-            <div className="md:hidden font-bold text-primary">Next Seeker</div>
+            <Link href={`/${locale}/dashboard`} className="md:hidden font-bold text-primary hover:opacity-80 transition-opacity">
+                Next Seeker
+            </Link>
             <div className="flex-1"></div>
             <div className="flex items-center gap-4">
                 <DropdownMenu>

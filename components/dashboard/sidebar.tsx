@@ -36,12 +36,14 @@ export function Sidebar({ locale }: { locale: string }) {
     return (
         <aside className="w-64 border-r bg-muted/20 hidden md:flex flex-col">
             <div className="p-6">
-                <h1 className="text-xl font-bold text-primary flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
-                        <Target className="w-5 h-5" />
-                    </div>
-                    Next Seeker
-                </h1>
+                <Link href={`/${locale}/dashboard`} className="hover:opacity-80 transition-opacity">
+                    <h1 className="text-xl font-bold text-primary flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
+                            <Target className="w-5 h-5" />
+                        </div>
+                        Next Seeker
+                    </h1>
+                </Link>
             </div>
             <nav className="flex-1 px-4 py-2 space-y-1">
                 {navItems.map((item) => {
