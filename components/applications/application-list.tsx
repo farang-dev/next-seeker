@@ -195,6 +195,21 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
         }
     };
 
+    const handleUpdate = async (id: string, updates: Partial<JobApplication>) => {
+        try {
+            const { error } = await supabase
+                .from('job_applications')
+                .update(updates)
+                .eq('id', id);
+
+            if (error) throw error;
+            router.refresh();
+            toast.success('Updated successfully');
+        } catch (error: any) {
+            toast.error(error.message || 'Failed to update');
+        }
+    };
+
     return (
         <div className="space-y-4">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -243,6 +258,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                             <SelectItem value="Interview">Interview</SelectItem>
                             <SelectItem value="Offer">Offer</SelectItem>
                             <SelectItem value="Rejected">Rejected</SelectItem>
+                            <SelectItem value="Archived">Archived</SelectItem>
                         </SelectContent>
                     </Select>
                     <Select value={priorityFilter} onValueChange={setPriorityFilter}>
@@ -359,13 +375,49 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                                     <TableCell className="text-muted-foreground truncate">
                                         {app.job_title}
                                     </TableCell>
-                                    <TableCell>
-                                        <Badge variant="outline" className={cn("px-2 py-0 h-5", getStatusColor(app.status))}>
-                                            {app.status}
-                                        </Badge>
+                                    <TableCell onClick={(e) => e.stopPropagation()}>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <button className="focus:outline-none">
+                                                    <Badge variant="outline" className={cn("px-2 py-0 h-5 cursor-pointer hover:ring-2 hover:ring-primary/20", getStatusColor(app.status))}>
+                                                        {app.status}
+                                                    </Badge>
+                                                </button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent align="start">
+                                                {(Object.keys(statusOrder) as ApplicationStatus[]).map((status) => (
+                                                    <DropdownMenuItem
+                                                        key={status}
+                                                        onClick={() => handleUpdate(app.id, { status })}
+                                                        className={cn(app.status === status && "bg-accent font-medium")}
+                                                    >
+                                                        <Badge variant="outline" className={cn("px-2 py-0 h-5 mr-2", getStatusColor(status))}>
+                                                            {status}
+                                                        </Badge>
+                                                    </DropdownMenuItem>
+                                                ))}
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
                                     </TableCell>
-                                    <TableCell>
-                                        <span className={cn(getPriorityColor(app.priority))}>{app.priority}</span>
+                                    <TableCell onClick={(e) => e.stopPropagation()}>
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <button className={cn("text-[14px] cursor-pointer hover:font-bold transition-all px-2 py-1 rounded-md hover:bg-accent", getPriorityColor(app.priority))}>
+                                                    {app.priority}
+                                                </button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent align="start">
+                                                {(Object.keys(priorityOrder) as ApplicationPriority[]).map((priority) => (
+                                                    <DropdownMenuItem
+                                                        key={priority}
+                                                        onClick={() => handleUpdate(app.id, { priority })}
+                                                        className={cn(app.priority === priority && "bg-accent font-medium", getPriorityColor(priority))}
+                                                    >
+                                                        {priority}
+                                                    </DropdownMenuItem>
+                                                ))}
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
                                     </TableCell>
                                     <TableCell className="text-muted-foreground whitespace-nowrap">
                                         {new Date(app.application_date).toLocaleDateString()}
@@ -400,7 +452,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
+                                <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
                                     {t('empty')}
                                 </TableCell>
                             </TableRow>
