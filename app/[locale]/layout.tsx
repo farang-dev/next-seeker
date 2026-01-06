@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { locales } from '@/i18n/settings';
 import { notFound } from 'next/navigation';
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,6 +38,21 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-NDFTTHZFKL"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-NDFTTHZFKL');
+          `}
+        </Script>
+      </head>
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider
           attribute="class"
