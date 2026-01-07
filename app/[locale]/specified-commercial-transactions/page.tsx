@@ -11,6 +11,9 @@ export default async function CommercialTransactionsPage({
     const t = await getTranslations("Commercial");
     const tFooter = await getTranslations("Footer");
 
+    const landingT = await getTranslations("Landing");
+    const commonT = await getTranslations("Common");
+
     const fields = [
         { label: t("distributor"), value: t("distributorValue") },
         { label: t("representative"), value: t("representativeValue") },
@@ -32,7 +35,12 @@ export default async function CommercialTransactionsPage({
                     <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
                         <Target className="w-5 h-5" />
                     </div>
-                    <span className="text-xl font-bold tracking-tight">Next Seeker</span>
+                    <div className="flex flex-col">
+                        <span className="text-xl font-bold tracking-tight leading-none">Next Seeker</span>
+                        <span className="text-[10px] font-medium text-muted-foreground mt-0.5">
+                            {commonT('subtitle')}
+                        </span>
+                    </div>
                 </Link>
             </header>
 
@@ -59,7 +67,7 @@ export default async function CommercialTransactionsPage({
 
             <footer className="py-6 border-t">
                 <div className="container px-4 md:px-6 mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
-                    <p>© 2025 Next Seeker. All rights reserved.</p>
+                    <p>© 2025 Next Seeker. {landingT('footer.builtFor')}</p>
                     <nav className="flex gap-4 sm:gap-6">
                         <Link className="hover:underline" href={`/${locale}/pricing`}>{tFooter('pricing')}</Link>
                         <Link className="hover:underline" href={`/${locale}/terms-and-conditions`}>{tFooter('terms')}</Link>

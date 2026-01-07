@@ -14,6 +14,7 @@ type AuthMode = 'login' | 'signup' | 'forgot-password';
 
 export default function LoginPage() {
     const t = useTranslations('Common');
+    const auth = useTranslations('Auth');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
@@ -27,7 +28,6 @@ export default function LoginPage() {
         const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(pass);
         return pass.length >= 8 && hasNumber && hasSymbol;
     };
-
     const handleAuth = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -53,7 +53,7 @@ export default function LoginPage() {
                     },
                 });
                 if (error) throw error;
-                toast.success('Check your email to confirm your account!');
+                toast.success(auth('signupSuccess'));
             } else if (mode === 'login') {
                 const { error } = await supabase.auth.signInWithPassword({
                     email,
@@ -91,10 +91,10 @@ export default function LoginPage() {
                     </CardTitle>
                     <CardDescription>
                         {mode === 'signup'
-                            ? 'Create an account to track your career'
+                            ? auth('signupDesc')
                             : mode === 'forgot-password'
-                                ? 'Enter your email to receive a reset link'
-                                : 'Enter your email to sign in to your dashboard'}
+                                ? auth('forgotDesc')
+                                : auth('loginDesc')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -113,7 +113,7 @@ export default function LoginPage() {
                             </div>
                         )}
                         <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email">{t('email')}</Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -126,7 +126,7 @@ export default function LoginPage() {
                         {mode !== 'forgot-password' && (
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between">
-                                    <Label htmlFor="password">Password</Label>
+                                    <Label htmlFor="password">{t('password')}</Label>
                                     <button
                                         type="button"
                                         onClick={() => setMode('forgot-password')}
@@ -145,7 +145,7 @@ export default function LoginPage() {
                             </div>
                         )}
                         <Button type="submit" className="w-full" disabled={loading}>
-                            {loading ? 'Processing...' : mode === 'signup' ? t('signup') : mode === 'forgot-password' ? t('sendResetLink') : t('login')}
+                            {loading ? t('processing') : mode === 'signup' ? t('signup') : mode === 'forgot-password' ? t('sendResetLink') : t('login')}
                         </Button>
                     </form>
                 </CardContent>
@@ -160,7 +160,7 @@ export default function LoginPage() {
                             </button>
                         ) : (
                             <>
-                                {mode === 'signup' ? 'Already have an account?' : "Don't have an account?"}{' '}
+                                {mode === 'signup' ? auth('alreadyHaveAccount') : auth('dontHaveAccount')}{' '}
                                 <button
                                     onClick={() => setMode(mode === 'signup' ? 'login' : 'signup')}
                                     className="text-primary hover:underline font-medium"

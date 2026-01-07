@@ -28,7 +28,7 @@ export default function ResetPasswordPage() {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            toast.error('Passwords do not match');
+            toast.error(t('passwordsDoNotMatch'));
             return;
         }
 
@@ -64,7 +64,7 @@ export default function ResetPasswordPage() {
                         {t('updatePassword')}
                     </CardTitle>
                     <CardDescription>
-                        Enter your new password below.
+                        {t('updatePasswordDesc')}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -90,7 +90,7 @@ export default function ResetPasswordPage() {
                             />
                         </div>
                         <Button type="submit" className="w-full" disabled={loading}>
-                            {loading ? 'Updating...' : t('updatePassword')}
+                            {loading ? t('updating') : t('updatePassword')}
                         </Button>
                     </form>
                 </CardContent>

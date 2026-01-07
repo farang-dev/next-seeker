@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { Toaster } from "@/components/ui/sonner";
 import { locales } from '@/i18n/settings';
 import { notFound } from 'next/navigation';
@@ -13,10 +13,15 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Next Seeker | Job Application Management",
-  description: "Manage your career goals and job applications in one professional dashboard.",
-};
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Common' });
+
+  return {
+    title: t('metaTitle'),
+    description: "Manage your career goals and job applications in one professional dashboard.",
+  };
+}
 
 export default async function RootLayout({
   children,

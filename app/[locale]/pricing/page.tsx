@@ -11,6 +11,9 @@ export default async function PricingPage({
 }) {
     const { locale } = await params;
     const t = await getTranslations("Pricing");
+    const footerT = await getTranslations("Footer");
+    const landingT = await getTranslations("Landing");
+    const commonT = await getTranslations("Common");
 
     const plans = [
         {
@@ -53,7 +56,12 @@ export default async function PricingPage({
                     <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
                         <Target className="w-5 h-5" />
                     </div>
-                    <span className="text-xl font-bold tracking-tight">Next Seeker</span>
+                    <div className="flex flex-col">
+                        <span className="text-xl font-bold tracking-tight leading-none">Next Seeker</span>
+                        <span className="text-[10px] font-medium text-muted-foreground mt-0.5">
+                            {commonT('subtitle')}
+                        </span>
+                    </div>
                 </Link>
             </header>
 
@@ -77,7 +85,7 @@ export default async function PricingPage({
                             >
                                 {plan.highlighted && (
                                     <div className="absolute top-0 right-0 bg-primary text-primary-foreground text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">
-                                        Most Popular
+                                        {t('mostPopular')}
                                     </div>
                                 )}
                                 <CardHeader>
@@ -112,14 +120,14 @@ export default async function PricingPage({
             <footer className="py-6 border-t">
                 <div className="container px-4 md:px-6 mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
                     <p className="text-xs text-muted-foreground">
-                        © 2025 Next Seeker. All rights reserved.
+                        © 2025 Next Seeker. {landingT('footer.builtFor')}
                     </p>
                     <nav className="flex gap-4 sm:gap-6">
-                        <Link className="text-xs hover:underline" href={`/${locale}/pricing`}>Pricing</Link>
-                        <Link className="text-xs hover:underline" href={`/${locale}/terms-and-conditions`}>Terms</Link>
-                        <Link className="text-xs hover:underline" href={`/${locale}/privacy-policy`}>Privacy</Link>
-                        <Link className="text-xs hover:underline" href={`/${locale}/refund-policy`}>Refund</Link>
-                        <Link className="text-xs hover:underline" href={`/${locale}/specified-commercial-transactions`}>Commercial</Link>
+                        <Link className="text-xs hover:underline" href={`/${locale}/pricing`}>{footerT('pricing')}</Link>
+                        <Link className="text-xs hover:underline" href={`/${locale}/terms-and-conditions`}>{footerT('terms')}</Link>
+                        <Link className="text-xs hover:underline" href={`/${locale}/privacy-policy`}>{footerT('privacy')}</Link>
+                        <Link className="text-xs hover:underline" href={`/${locale}/refund-policy`}>{footerT('refund')}</Link>
+                        <Link className="text-xs hover:underline" href={`/${locale}/specified-commercial-transactions`}>{footerT('commercial')}</Link>
                     </nav>
                 </div>
             </footer>

@@ -10,8 +10,11 @@ const intlMiddleware = createMiddleware({
     localePrefix: 'always'
 });
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
+    // 1. Run intl middleware first
     const response = intlMiddleware(request);
+
+    // 2. Pass the response from intl to updateSession to preserve its headers/cookies
     return await updateSession(request, response);
 }
 

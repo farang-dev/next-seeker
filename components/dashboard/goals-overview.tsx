@@ -26,10 +26,10 @@ export function GoalsOverview({ goals }: { goals: CareerGoal[] }) {
                         </CardHeader>
                         <CardContent>
                             <div className="text-lg font-bold truncate">
-                                {goal?.title || "Not set yet"}
+                                {goal?.title || t('notSet')}
                             </div>
                             <p className="text-xs text-muted-foreground mt-1 line-clamp-2">
-                                {goal?.description || "Click to set your goal"}
+                                {goal?.description || t('clickToSet')}
                             </p>
                         </CardContent>
                     </Card>

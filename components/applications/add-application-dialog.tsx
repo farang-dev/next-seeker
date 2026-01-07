@@ -25,8 +25,14 @@ import {
 } from '@/components/ui/select';
 import { toast } from 'sonner';
 import { PaywallDialog } from './paywall-dialog';
+import { useTranslations } from 'next-intl';
+import { ApplicationStatus, ApplicationPriority } from '@/lib/types';
 
 export function AddApplicationDialog() {
+    const t = useTranslations('Applications');
+    const tStatus = useTranslations('Statuses');
+    const tPriority = useTranslations('Priorities');
+
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showPaywall, setShowPaywall] = useState(false);
@@ -39,8 +45,8 @@ export function AddApplicationDialog() {
     const [company, setCompany] = useState('');
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
-    const [status, setStatus] = useState('Draft');
-    const [priority, setPriority] = useState('Medium');
+    const [status, setStatus] = useState<ApplicationStatus>('Draft');
+    const [priority, setPriority] = useState<ApplicationPriority>('Medium');
 
     // Check premium status and application count
     useEffect(() => {
@@ -70,10 +76,6 @@ export function AddApplicationDialog() {
             checkPremiumStatus();
         }
     }, [open, supabase]);
-
-    const handleOpenDialog = () => {
-        setOpen(true);
-    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -105,7 +107,7 @@ export function AddApplicationDialog() {
 
             if (error) throw error;
 
-            toast.success('Application added successfully!');
+            toast.success(t('addSuccess'));
             setOpen(false);
             router.refresh();
 
@@ -122,26 +124,29 @@ export function AddApplicationDialog() {
         }
     };
 
+    const statuses: ApplicationStatus[] = ['Draft', 'Applied', 'Interview', 'Offer', 'Rejected', 'Archived'];
+    const priorities: ApplicationPriority[] = ['High', 'Medium', 'Low'];
+
     return (
         <>
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                     <Button className="gap-2">
                         <PlusCircle className="h-4 w-4" />
-                        Add Application
+                        {t('addNew')}
                     </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
                     <form onSubmit={handleSubmit}>
                         <DialogHeader>
-                            <DialogTitle>Add New Application</DialogTitle>
+                            <DialogTitle>{t('addTitle')}</DialogTitle>
                             <DialogDescription>
-                                Start tracking a new job opportunity. You can fill in the details later.
+                                {t('addDesc')}
                             </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
                             <div className="grid gap-2">
-                                <Label htmlFor="company">Company Name</Label>
+                                <Label htmlFor="company">{t('companyLabel')}</Label>
                                 <Input
                                     id="company"
                                     required
@@ -150,7 +155,7 @@ export function AddApplicationDialog() {
                                 />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="title">Job Title</Label>
+                                <Label htmlFor="title">{t('jobTitleLabel')}</Label>
                                 <Input
                                     id="title"
                                     required
@@ -159,7 +164,7 @@ export function AddApplicationDialog() {
                                 />
                             </div>
                             <div className="grid gap-2">
-                                <Label htmlFor="url">Job URL (optional)</Label>
+                                <Label htmlFor="url">{t('jobUrlLabel')}</Label>
                                 <Input
                                     id="url"
                                     type="url"
@@ -169,31 +174,28 @@ export function AddApplicationDialog() {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="grid gap-2">
-                                    <Label htmlFor="status">Status</Label>
-                                    <Select value={status} onValueChange={setStatus}>
+                                    <Label htmlFor="status">{t('statusLabel')}</Label>
+                                    <Select value={status} onValueChange={(v) => setStatus(v as ApplicationStatus)}>
                                         <SelectTrigger id="status">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="Draft">Draft</SelectItem>
-                                            <SelectItem value="Applied">Applied</SelectItem>
-                                            <SelectItem value="Interview">Interview</SelectItem>
-                                            <SelectItem value="Offer">Offer</SelectItem>
-                                            <SelectItem value="Rejected">Rejected</SelectItem>
-                                            <SelectItem value="Archived">Archived</SelectItem>
+                                            {statuses.map(s => (
+                                                <SelectItem key={s} value={s}>{tStatus(s)}</SelectItem>
+                                            ))}
                                         </SelectContent>
                                     </Select>
                                 </div>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="priority">Priority</Label>
-                                    <Select value={priority} onValueChange={setPriority}>
+                                    <Label htmlFor="priority">{t('priorityLabel')}</Label>
+                                    <Select value={priority} onValueChange={(v) => setPriority(v as ApplicationPriority)}>
                                         <SelectTrigger id="priority">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="High">High</SelectItem>
-                                            <SelectItem value="Medium">Medium</SelectItem>
-                                            <SelectItem value="Low">Low</SelectItem>
+                                            {priorities.map(p => (
+                                                <SelectItem key={p} value={p}>{tPriority(p)}</SelectItem>
+                                            ))}
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -201,7 +203,7 @@ export function AddApplicationDialog() {
                         </div>
                         <DialogFooter>
                             <Button type="submit" disabled={loading}>
-                                {loading ? 'Adding...' : 'Add Application'}
+                                {loading ? t('adding') : t('addNew')}
                             </Button>
                         </DialogFooter>
                     </form>

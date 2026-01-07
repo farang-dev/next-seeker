@@ -50,6 +50,8 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
 
     const router = useRouter();
     const t = useTranslations('Applications');
+    const tStatus = useTranslations('Statuses');
+    const tPriority = useTranslations('Priorities');
     const supabase = createClient();
 
     const statusOrder: Record<ApplicationStatus, number> = {
@@ -173,7 +175,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
     };
 
     const handleDelete = async (ids: string[]) => {
-        if (!confirm('Are you sure you want to delete the selected application(s)?')) return;
+        if (!confirm(t('confirmDelete'))) return;
 
         setIsDeleting(true);
         try {
@@ -184,12 +186,12 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
 
             if (error) throw error;
 
-            toast.success(`Successfully deleted ${ids.length} application(s)`);
+            toast.success(t('deleteSuccess', { count: ids.length }));
             setSelectedApps(new Set());
             setIsSelectionMode(false);
             router.refresh();
         } catch (error: any) {
-            toast.error(error.message || 'Failed to delete applications');
+            toast.error(error.message || t('deleteError'));
         } finally {
             setIsDeleting(false);
         }
@@ -204,9 +206,9 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
 
             if (error) throw error;
             router.refresh();
-            toast.success('Updated successfully');
+            toast.success(t('updateSuccess'));
         } catch (error: any) {
-            toast.error(error.message || 'Failed to update');
+            toast.error(error.message || t('updateError'));
         }
     };
 
@@ -232,7 +234,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                             className="gap-2 mr-2"
                         >
                             <Trash2 className="h-4 w-4" />
-                            Delete ({selectedApps.size})
+                            {t('deleteSelected', { count: selectedApps.size })}
                         </Button>
                     )}
                     <Button
@@ -241,7 +243,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                         onClick={toggleSelectionMode}
                         className="gap-2"
                     >
-                        {isSelectionMode ? 'Cancel Selection' : 'Select'}
+                        {isSelectionMode ? t('cancelSelection') : t('select')}
                     </Button>
                     <Button variant="outline" size="sm" onClick={downloadCSV} className="gap-2">
                         <Download className="h-4 w-4" />
@@ -253,12 +255,9 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">{t('allStatus')}</SelectItem>
-                            <SelectItem value="Draft">Draft</SelectItem>
-                            <SelectItem value="Applied">Applied</SelectItem>
-                            <SelectItem value="Interview">Interview</SelectItem>
-                            <SelectItem value="Offer">Offer</SelectItem>
-                            <SelectItem value="Rejected">Rejected</SelectItem>
-                            <SelectItem value="Archived">Archived</SelectItem>
+                            {(Object.keys(statusOrder) as ApplicationStatus[]).map(s => (
+                                <SelectItem key={s} value={s}>{tStatus(s)}</SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
                     <Select value={priorityFilter} onValueChange={setPriorityFilter}>
@@ -267,9 +266,9 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">{t('allPriority')}</SelectItem>
-                            <SelectItem value="High">High</SelectItem>
-                            <SelectItem value="Medium">Medium</SelectItem>
-                            <SelectItem value="Low">Low</SelectItem>
+                            {(Object.keys(priorityOrder) as ApplicationPriority[]).map(p => (
+                                <SelectItem key={p} value={p}>{tPriority(p)}</SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
                 </div>
@@ -344,7 +343,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                                     )}
                                 </div>
                             </TableHead>
-                            <TableHead className="w-20 text-right">Actions</TableHead>
+                            <TableHead className="w-20 text-right">{t('actions')}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -380,7 +379,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                                             <DropdownMenuTrigger asChild>
                                                 <button className="focus:outline-none">
                                                     <Badge variant="outline" className={cn("px-2 py-0 h-5 cursor-pointer hover:ring-2 hover:ring-primary/20", getStatusColor(app.status))}>
-                                                        {app.status}
+                                                        {tStatus(app.status)}
                                                     </Badge>
                                                 </button>
                                             </DropdownMenuTrigger>
@@ -392,7 +391,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                                                         className={cn(app.status === status && "bg-accent font-medium")}
                                                     >
                                                         <Badge variant="outline" className={cn("px-2 py-0 h-5 mr-2", getStatusColor(status))}>
-                                                            {status}
+                                                            {tStatus(status)}
                                                         </Badge>
                                                     </DropdownMenuItem>
                                                 ))}
@@ -403,7 +402,7 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
                                                 <button className={cn("text-[14px] cursor-pointer hover:font-bold transition-all px-2 py-1 rounded-md hover:bg-accent", getPriorityColor(app.priority))}>
-                                                    {app.priority}
+                                                    {tPriority(app.priority)}
                                                 </button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="start">
@@ -413,14 +412,14 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                                                         onClick={() => handleUpdate(app.id, { priority })}
                                                         className={cn(app.priority === priority && "bg-accent font-medium", getPriorityColor(priority))}
                                                     >
-                                                        {priority}
+                                                        {tPriority(priority)}
                                                     </DropdownMenuItem>
                                                 ))}
                                             </DropdownMenuContent>
                                         </DropdownMenu>
                                     </TableCell>
                                     <TableCell className="text-muted-foreground whitespace-nowrap">
-                                        {new Date(app.application_date).toLocaleDateString()}
+                                        {new Date(app.application_date).toLocaleDateString(locale)}
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <div onClick={(e) => e.stopPropagation()}>
@@ -432,17 +431,17 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                                                 </DropdownMenuTrigger>
                                                 <DropdownMenuContent align="end">
                                                     <DropdownMenuItem onClick={() => router.push(`/${locale}/dashboard/applications/${app.id}`)}>
-                                                        View Details
+                                                        {t('viewDetails')}
                                                     </DropdownMenuItem>
                                                     <DropdownMenuItem onClick={() => setEditingApp(app)}>
-                                                        Edit Application
+                                                        {t('editApplication')}
                                                     </DropdownMenuItem>
                                                     <DropdownMenuSeparator />
                                                     <DropdownMenuItem
                                                         onClick={() => handleDelete([app.id])}
                                                         className="text-red-600 focus:text-red-600"
                                                     >
-                                                        Delete
+                                                        {t('delete')}
                                                     </DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>

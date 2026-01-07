@@ -15,10 +15,12 @@ import { User } from '@supabase/supabase-js';
 import { User as UserIcon, LogOut, Moon, Sun } from 'lucide-react';
 import { toast } from 'sonner';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export function Header({ user, locale }: { user: User, locale: string }) {
     const router = useRouter();
     const supabase = createClient();
+    const t = useTranslations('Common');
 
     const handleSignOut = async () => {
         await supabase.auth.signOut();
@@ -42,13 +44,13 @@ export function Header({ user, locale }: { user: User, locale: string }) {
                         <DropdownMenuLabel>
                             <div className="flex flex-col">
                                 <span className="text-sm font-medium">{user.email}</span>
-                                <span className="text-xs text-muted-foreground">User Profile</span>
+                                <span className="text-xs text-muted-foreground">{t('userProfile')}</span>
                             </div>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={handleSignOut} className="text-destructive focus:text-destructive">
                             <LogOut className="w-4 h-4 mr-2" />
-                            Sign Out
+                            {t('signOut')}
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

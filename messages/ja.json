@@ -1,6 +1,8 @@
 {
     "Common": {
         "title": "Next Seeker",
+        "subtitle": "転職管理マイリスト",
+        "metaTitle": "Next Seeker | 転職管理マイリスト",
         "dashboard": "ダッシュボード",
         "applications": "応募管理",
         "goals": "キャリア目標",
@@ -15,9 +17,39 @@
         "backToLogin": "ログインに戻る",
         "updatePassword": "パスワードを更新",
         "newPassword": "新しいパスワード",
+        "confirmPassword": "パスワードの確認",
         "passwordResetSent": "パスワードリセットリンクをメールで送信しました。",
         "passwordUpdated": "パスワードを更新しました。",
-        "passwordError": "パスワードは8文字以上で、数字と記号を含める必要があります。"
+        "passwordError": "パスワードは8文字以上で、数字と記号を含める必要があります。",
+        "userProfile": "ユーザープロフィール",
+        "signOut": "サインアウト",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "processing": "処理中...",
+        "passwordsDoNotMatch": "パスワードが一致しません",
+        "updatePasswordDesc": "新しいパスワードを入力してください。",
+        "updating": "更新中..."
+    },
+    "Statuses": {
+        "Draft": "下書き",
+        "Applied": "応募済み",
+        "Interview": "面接中",
+        "Offer": "内定",
+        "Rejected": "不採用",
+        "Archived": "アーカイブ"
+    },
+    "Priorities": {
+        "High": "高",
+        "Medium": "中",
+        "Low": "低"
+    },
+    "Auth": {
+        "signupDesc": "アカウントを作成してキャリアを管理しましょう",
+        "forgotDesc": "パスワード再設定用のリンクをメールで送信します",
+        "loginDesc": "メールアドレスを入力してログインしてください",
+        "alreadyHaveAccount": "既にアカウントをお持ちですか？",
+        "dontHaveAccount": "アカウントをお持ちでないですか？",
+        "signupSuccess": "確認メールを送信しました。メールボックスを確認してください。"
     },
     "Dashboard": {
         "greeting": {
@@ -30,6 +62,7 @@
         "subtitle": "キャリア目標と応募案件の進捗状況を確認しましょう。",
         "stats": {
             "total": "総応募数",
+            "applied": "応募済み",
             "interviews": "面接中",
             "offers": "内定"
         },
@@ -50,12 +83,32 @@
         "edit": "目標を編集",
         "save": "変更を保存",
         "whyTitle": "なぜ目標を立てるのか？",
-        "whyDesc": "明確な10年後のビジョンがあれば、現在の内定が本当にステップアップになるのか、単なる寄り道なのかを判断できます。求人を選別し、面接に臨む際のフィルターとして活用してください。"
+        "whyDesc": "明確な10年後のビジョンがあれば、現在の内定が本当にステップアップになるのか、単なる寄り道なのかを判断できます。求人を選別し、面接に臨む際のフィルターとして活用してください。",
+        "goalTitle": "目標のタイトル",
+        "description": "詳細説明",
+        "notesRoadmap": "ノート / ロードマップ",
+        "placeholderTitle": "例：シニアフルスタックエンジニア",
+        "placeholderDesc": "成功した状態はどのようなものですか？",
+        "placeholderNotes": "習得すべきスキルやマイルストーンなど...",
+        "saveGoal": "目標を保存",
+        "goalUpdated": "{type}を更新しました！",
+        "whereSeeYourself": "{years}年後のあなたはどうなっていたいですか？",
+        "notSet": "未設定",
+        "clickToSet": "目標を設定しましょう"
     },
     "Applications": {
         "title": "応募一覧",
         "subtitle": "進行中のすべての応募案件を一つの場所で管理・追跡します。",
         "addNew": "新規作成",
+        "addTitle": "新規応募を追加",
+        "addDesc": "新しい求人情報の追跡を開始します。詳細は後で入力できます。",
+        "companyLabel": "企業名",
+        "jobTitleLabel": "職種",
+        "jobUrlLabel": "求人URL (任意)",
+        "statusLabel": "ステータス",
+        "priorityLabel": "優先度",
+        "adding": "追加中...",
+        "addSuccess": "応募案件を追加しました！",
         "status": "ステータス",
         "priority": "優先度",
         "company": "企業名",
@@ -65,17 +118,38 @@
         "searchPlaceholder": "企業名や職種で検索...",
         "allStatus": "すべてのステータス",
         "allPriority": "すべての優先度",
-        "downloadCSV": "CSVダウンロード"
+        "downloadCSV": "CSVダウンロード",
+        "select": "選択",
+        "cancelSelection": "選択を解除",
+        "deleteSelected": "削除 ({count})",
+        "viewDetails": "詳細を表示",
+        "editApplication": "応募内容を編集",
+        "delete": "削除",
+        "actions": "操作",
+        "confirmDelete": "選択した応募案件を削除してもよろしいですか？",
+        "deleteSuccess": "{count}件の応募案件を削除しました",
+        "deleteError": "削除に失敗しました",
+        "updateSuccess": "更新しました",
+        "updateError": "更新に失敗しました",
+        "saving": "保存中...",
+        "cancel": "キャンセル",
+        "saveChanges": "変更を保存",
+        "jobUrl": "求人URL",
+        "optional": "任意",
+        "editDialogSubtitle": "この応募案件の詳細情報を更新します。"
     },
     "Detail": {
         "motivation": "志望動機",
+        "interviews": "面接",
         "interviewPrep": "面接準備",
         "questions": "逆質問",
         "notes": "ノート",
         "whyApplied": "志望理由",
         "whyAppliedDesc": "この企業や職種に応募した理由を整理しましょう。",
         "motivationLabel": "志望動機 (なぜこの企業なのか？)",
+        "motivationPlaceholder": "以前から貴社のプロダクトのファンで...",
         "fitLabel": "キャリア目標との整合性 (どのように目標に繋がるか)",
+        "fitPlaceholder": "この職種は、私の長期目標である...",
         "prepMaterial": "準備資料",
         "prepDesc": "企業研究や話すポイントをメモしましょう。",
         "pitchLabel": "自己紹介 / プレゼン内容",
@@ -83,14 +157,31 @@
         "questionsTitle": "企業への質問",
         "questionsDesc": "面接で聞きたい質問のリストです。",
         "addQuestion": "質問を追加",
+        "newQuestion": "新しい質問",
         "freeNotes": "フリーノート & フィードバック",
         "freeNotesDesc": "面接で学んだことやフィードバックを記録しましょう。",
+        "freeNotesInfo": "フリーノートや面接ログがここに表示されます。",
         "saveChanges": "変更を保存",
-        "viewListing": "求人詳細を見る"
+        "viewListing": "求人詳細を見る",
+        "round": "第 {number} ラウンド",
+        "interviewRound": "面接 {number}",
+        "interviewRoundDesc": "このラウンドの詳細とフィードバック。",
+        "saveRound": "ラウンドを保存",
+        "roundUpdated": "第 {number} ラウンドを更新しました",
+        "infoSaved": "情報を保存しました",
+        "dateTime": "日時",
+        "location": "場所 / リンク",
+        "locationPlaceholder": "Zoomリンクやオフィスの住所",
+        "prepNotes": "準備とメモ",
+        "prepPlaceholder": "招待時に言及されていた内容など...",
+        "feedback": "面接後のフィードバック",
+        "feedbackPlaceholder": "手応えはどうでしたか？ 難しい質問はありましたか？",
+        "answerPlaceholder": "回答案や調査内容..."
     },
     "Settings": {
         "appearance": "外観",
         "appearanceDesc": "画面の表示設定をカスタマイズします。",
+        "settingsDesc": "アカウント設定やアプリケーションの環境設定を管理します。",
         "theme": "テーマ設定",
         "themeDesc": "お好みのカラーテーマを選択してください。",
         "light": "ライト",
@@ -100,6 +191,8 @@
         "languageDesc": "表示言語を選択します。",
         "interfaceLanguage": "インターフェース言語",
         "interfaceLanguageDesc": "ダッシュボードの表示言語が変更されます。",
+        "selectTheme": "テーマを選択",
+        "selectLanguage": "言語を選択",
         "dangerZone": "危険ゾーン",
         "dangerZoneDesc": "アカウントに関する取り消し不可能な操作です。",
         "deleteAccount": "アカウントとデータを削除"
@@ -107,17 +200,46 @@
     "Privacy": {
         "title": "プライバシーポリシー",
         "lastUpdated": "最終更新日: 2025年12月25日",
-        "intro": "Next Seekerでは、お客様のプライバシーを重視しています。このポリシーでは、お客様の情報の収集、使用、および保護の方法について説明します。"
+        "intro": "Next Seekerでは、お客様のプライバシーを重視しています。このポリシーでは、お客様の情報の収集、使用、および保護の方法について説明します。",
+        "section1": "1. 収集する情報",
+        "section1Content": "アカウント作成時に氏名やメールアドレスなど、お客様から直接提供される情報を収集します。また、サービスを提供するために、応募案件やキャリア目標に関するデータも収集します。",
+        "section2": "2. 情報の利用目的",
+        "section2Content": "収集した情報は、サービスの提供、維持、改善、新しいサービスの開発、およびNext Seekerとお客様の保護のために利用します。",
+        "section2List1": "応募案件とダッシュボードの管理",
+        "section2List2": "デバイス間でのデータ同期",
+        "section2List3": "アカウントに関する重要な通知の送信",
+        "section3": "3. データのセキュリティ",
+        "section3Content": "Next Seekerおよびお客様を、保有する情報への不正アクセス、改ざん、開示、または破壊から保護するために最大限努めています。",
+        "section4": "4. お問い合わせ",
+        "section4Content": "本プライバシーポリシーに関するご質問がある場合は、support@nextseeker.com までお問い合わせください。"
     },
     "Terms": {
         "title": "利用規約",
         "lastUpdated": "最終更新日: 2025年12月25日",
-        "intro": "Next Seekerを使用することにより、以下の利用規約に同意したものとみなされます。よくお読みください。"
+        "intro": "Next Seekerを使用することにより、以下の利用規約に同意したものとみなされます。よくお読みください。",
+        "section1": "1. 規約への同意",
+        "section1Content": "Next Seekerにアクセスまたは使用することにより、お客様は本利用規約および適用されるすべての法律および規制に拘束されることに同意したものとみなされます。",
+        "section2": "2. 使用ライセンス",
+        "section2Content": "Next Seekerは個人的、非営利目的での使用に限り許可されます。これはライセンスの付与であり、所有権の移転ではありません。",
+        "section3": "3. ユーザーコンテンツ",
+        "section3Content": "お客様がNext Seekerに投稿するコンテンツについては、お客様自身が責任を負うものとします。当社はお客様のデータの所有権を主張しませんが、サービスを提供するために必要な範囲で、当社にそのホストを許可するものとします。",
+        "section4": "4. アカウントのセキュリティ",
+        "section4Content": "お客様は、アカウントとパスワードの機密保持、およびコンピュータへのアクセス制限について責任を負うものとします。",
+        "section5": "5. 利用停止",
+        "section5Content": "当社は、当社の独自の裁量により、理由の如何を問わず、事前の通知や責任を負うことなく、直ちにお客様のアカウントを終了または停止し、サービスへのアクセスを禁止することができるものとします。"
     },
     "Refund": {
         "title": "返金ポリシー",
         "lastUpdated": "最終更新日: 2025年12月25日",
-        "intro": "Next Seekerを満足してご利用いただけるよう努めています。満足いただけない場合は、以下の返金ポリシーをお読みください。"
+        "intro": "Next Seekerを満足してご利用いただけるよう努めています。満足いただけない場合は、以下の返金ポリシーをお読みください。",
+        "section1": "1. 返金の対象",
+        "section1Content": "無制限プレミアムプランにご満足いただけない場合、購入から14日間の返金保証を提供しています。返金を希望される場合は、購入から14日以内にリクエストを送信してください。",
+        "section2": "2. 返金手続き",
+        "section2Content": "返金を希望される場合は、アカウント詳細と理由を添えて support@nextseeker.com までメールでお問い合わせください。5-10営業日以内に処理いたします。",
+        "section3": "3. 返金対象外となる場合",
+        "section3Content": "購入から14日を過ぎた後のリクエストは、原則として返金の対象外となります。また、利用規約に違反したアカウントも返金の対象外です。",
+        "section4": "4. ポリシーの変更",
+        "section4Content": "当社は、いつでも本返金ポリシーを変更する権利を留保します。変更はこのページに掲載された時点で直ちに有効となります。"
     },
     "Pricing": {
         "title": "シンプルで透明な料金体系",
@@ -146,7 +268,8 @@
             ]
         },
         "cta": "始める",
-        "upgrade": "今すぐアップグレード"
+        "upgrade": "今すぐアップグレード",
+        "mostPopular": "人気"
     },
     "Commercial": {
         "title": "特定商取引法に基づく表記",
@@ -172,6 +295,32 @@
         "deliveryTimingValue": "決済完了後、直ちにご利用いただけます。",
         "returns": "返品・キャンセルについて",
         "returnsValue": "＜お客様都合の返品・キャンセル＞\nデジタルコンテンツおよびサービスの性質上、決済完了後の返品・キャンセルはお受けしておりません。\n\n＜サービスに不備がある場合＞\n万が一、サービスに不備がございましたら、上記メールアドレスまでご連絡ください。内容を確認の上、対応させていただきます。"
+    },
+    "Landing": {
+        "hero": {
+            "titlePart1": "応募管理ではなく、",
+            "titleHighlight": "キャリアを管理しよう",
+            "subtitle": "転職活動を加速させる、プロフェッショナルのためのダッシュボード。すべての応募を将来の目標と結びつけ、徹底した準備で内定を勝ち取りましょう。",
+            "ctaFree": "無料で始める",
+            "ctaDemo": "デモを見る"
+        },
+        "features": {
+            "goal": {
+                "title": "目標逆算型の応募管理",
+                "desc": "3年、5年、10年後のキャリア目標を設定。すべての応募がその目標に近づく一歩であることを確認できます。"
+            },
+            "workspace": {
+                "title": "面接準備ワークスペース",
+                "desc": "各案件ごとに、企業研究、自己PR、逆質問を整理できる専用のワークスペースを提供します。"
+            },
+            "growth": {
+                "title": "成長を可視化",
+                "desc": "複数の応募案件の進捗を、プロフェッショナルでクリーンなダッシュボードで一目瞭然に管理できます。"
+            }
+        },
+        "footer": {
+            "builtFor": "キャリアを切り拓くすべての人のために。"
+        }
     },
     "Footer": {
         "pricing": "料金プラン",

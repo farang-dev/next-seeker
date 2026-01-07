@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { GoalsOverview } from '@/components/dashboard/goals-overview';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Briefcase, CheckCircle2, Send, XCircle } from 'lucide-react';
+import { Briefcase, CheckCircle2, Send } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,7 @@ export default async function DashboardPage({
 }) {
     const { locale } = await params;
     const t = await getTranslations('Dashboard');
-    const commonT = await getTranslations('Common');
+    const tStatus = await getTranslations('Statuses');
     const supabase = await createClient();
 
     // Fetch Goals
@@ -63,8 +63,9 @@ export default async function DashboardPage({
     else if (hour < 18) greetingKey = 'greeting.afternoon';
     else greetingKey = 'greeting.evening';
 
+    const greetingValue = t(greetingKey);
     const greeting = profile?.full_name
-        ? `${t(greetingKey)}, ${profile.full_name}`
+        ? `${greetingValue}, ${profile.full_name}`
         : t('welcome');
 
     return (
@@ -116,10 +117,10 @@ export default async function DashboardPage({
                                     </div>
                                     <div className="text-right">
                                         <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary text-secondary-foreground border">
-                                            {app.status}
+                                            {tStatus(app.status)}
                                         </span>
                                         <p className="text-[10px] text-muted-foreground mt-1">
-                                            {new Date(app.updated_at).toLocaleDateString()}
+                                            {new Date(app.updated_at).toLocaleDateString(locale)}
                                         </p>
                                     </div>
                                 </Link>

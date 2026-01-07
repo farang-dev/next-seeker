@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Target, Calendar, Clock, Save, Loader2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export function GoalEditor({
     type,
@@ -21,6 +22,15 @@ export function GoalEditor({
     const [goal, setGoal] = useState<Partial<CareerGoal>>(initialGoal || { type, title: '', description: '', notes: '' });
     const [loading, setLoading] = useState(false);
     const supabase = createClient();
+    const t = useTranslations('Goals');
+
+    const getGoalKey = (t: CareerGoalType) => {
+        switch (t) {
+            case '3-year': return 'threeYear';
+            case '5-year': return 'fiveYear';
+            case '10-year': return 'tenYear';
+        }
+    };
 
     const handleSave = async () => {
         setLoading(true);
@@ -50,7 +60,7 @@ export function GoalEditor({
             }
 
             if (error) throw error;
-            toast.success(`${type} goal updated!`);
+            toast.success(t('goalUpdated', { type: t(getGoalKey(type)) }));
         } catch (error: any) {
             toast.error(error.message);
         } finally {
@@ -74,34 +84,34 @@ export function GoalEditor({
                     <div className="p-2 rounded-lg bg-primary/10 text-primary">
                         <Icon className="h-5 w-5" />
                     </div>
-                    <CardTitle>{type} Goal</CardTitle>
+                    <CardTitle>{t(getGoalKey(type))}</CardTitle>
                 </div>
                 <CardDescription>
-                    Where do you see yourself in {type.split('-')[0]}s?
+                    {t('whereSeeYourself', { years: type.split('-')[0] })}
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4 flex-1">
                 <div className="space-y-2">
-                    <Label>Goal Title</Label>
+                    <Label>{t('goalTitle')}</Label>
                     <Input
-                        placeholder="e.g. Senior Full Stack Engineer"
+                        placeholder={t('placeholderTitle')}
                         value={goal.title}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGoal({ ...goal, title: e.target.value })}
                     />
                 </div>
                 <div className="space-y-2">
-                    <Label>Description</Label>
+                    <Label>{t('description')}</Label>
                     <Textarea
-                        placeholder="What does success look like?"
+                        placeholder={t('placeholderDesc')}
                         className="min-h-[100px]"
                         value={goal.description || ''}
                         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setGoal({ ...goal, description: e.target.value })}
                     />
                 </div>
                 <div className="space-y-2">
-                    <Label>Notes / Roadmap</Label>
+                    <Label>{t('notesRoadmap')}</Label>
                     <Textarea
-                        placeholder="Specific skills to learn or milestones..."
+                        placeholder={t('placeholderNotes')}
                         className="min-h-[100px]"
                         value={goal.notes || ''}
                         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setGoal({ ...goal, notes: e.target.value })}
@@ -115,7 +125,7 @@ export function GoalEditor({
                     ) : (
                         <Save className="h-4 w-4 mr-2" />
                     )}
-                    Save Goal
+                    {t('saveGoal')}
                 </Button>
             </CardFooter>
         </Card>

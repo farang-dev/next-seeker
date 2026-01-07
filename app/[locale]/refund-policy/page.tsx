@@ -9,6 +9,9 @@ export default async function RefundPage({
 }) {
     const { locale } = await params;
     const t = await getTranslations("Refund");
+    const footerT = await getTranslations("Footer");
+    const landingT = await getTranslations("Landing");
+    const commonT = await getTranslations("Common");
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -17,7 +20,12 @@ export default async function RefundPage({
                     <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
                         <Target className="w-5 h-5" />
                     </div>
-                    <span className="text-xl font-bold tracking-tight">Next Seeker</span>
+                    <div className="flex flex-col">
+                        <span className="text-xl font-bold tracking-tight leading-none">Next Seeker</span>
+                        <span className="text-[10px] font-medium text-muted-foreground mt-0.5">
+                            {commonT('subtitle')}
+                        </span>
+                    </div>
                 </Link>
             </header>
 
@@ -34,23 +42,23 @@ export default async function RefundPage({
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">1. Refund Eligibility</h2>
-                            <p>We offer a 14-day money-back guarantee for our Unlimited Premium plan if you are not satisfied with the service. To be eligible for a refund, you must submit your request within 14 days of your purchase.</p>
+                            <h2 className="text-2xl font-semibold text-foreground">{t("section1")}</h2>
+                            <p>{t("section1Content")}</p>
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">2. Process for Refunds</h2>
-                            <p>To request a refund, please email us at support@nextseeker.com with your account details and the reason for your request. We will process your refund within 5-10 business days.</p>
+                            <h2 className="text-2xl font-semibold text-foreground">{t("section2")}</h2>
+                            <p>{t("section2Content")}</p>
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">3. Non-refundable Situations</h2>
-                            <p>Requests made after the 14-day window are generally not eligible for a refund. Additionally, accounts that have violated our Terms of Service are not eligible for refunds.</p>
+                            <h2 className="text-2xl font-semibold text-foreground">{t("section3")}</h2>
+                            <p>{t("section3Content")}</p>
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">4. Changes to This Policy</h2>
-                            <p>We reserve the right to modify this refund policy at any time. Changes will be effective immediately upon posting to this page.</p>
+                            <h2 className="text-2xl font-semibold text-foreground">{t("section4")}</h2>
+                            <p>{t("section4Content")}</p>
                         </section>
                     </div>
                 </div>
@@ -58,13 +66,13 @@ export default async function RefundPage({
 
             <footer className="py-6 border-t">
                 <div className="container px-4 md:px-6 mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
-                    <p>© 2025 Next Seeker. All rights reserved.</p>
+                    <p>© 2025 Next Seeker. {landingT('footer.builtFor')}</p>
                     <nav className="flex gap-4 sm:gap-6">
-                        <Link className="hover:underline" href={`/${locale}/pricing`}>Pricing</Link>
-                        <Link className="hover:underline" href={`/${locale}/terms-and-conditions`}>Terms</Link>
-                        <Link className="hover:underline" href={`/${locale}/privacy-policy`}>Privacy</Link>
-                        <Link className="hover:underline" href={`/${locale}/refund-policy`}>Refund</Link>
-                        <Link className="hover:underline" href={`/${locale}/specified-commercial-transactions`}>Commercial</Link>
+                        <Link className="hover:underline" href={`/${locale}/pricing`}>{footerT('pricing')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/terms-and-conditions`}>{footerT('terms')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/privacy-policy`}>{footerT('privacy')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/refund-policy`}>{footerT('refund')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/specified-commercial-transactions`}>{footerT('commercial')}</Link>
                     </nav>
                 </div>
             </footer>

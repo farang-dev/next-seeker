@@ -9,6 +9,9 @@ export default async function TermsPage({
 }) {
     const { locale } = await params;
     const t = await getTranslations("Terms");
+    const footerT = await getTranslations("Footer");
+    const landingT = await getTranslations("Landing");
+    const commonT = await getTranslations("Common");
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -17,7 +20,12 @@ export default async function TermsPage({
                     <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
                         <Target className="w-5 h-5" />
                     </div>
-                    <span className="text-xl font-bold tracking-tight">Next Seeker</span>
+                    <div className="flex flex-col">
+                        <span className="text-xl font-bold tracking-tight leading-none">Next Seeker</span>
+                        <span className="text-[10px] font-medium text-muted-foreground mt-0.5">
+                            {commonT('subtitle')}
+                        </span>
+                    </div>
                 </Link>
             </header>
 
@@ -34,28 +42,28 @@ export default async function TermsPage({
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">1. Acceptance of Terms</h2>
-                            <p>By accessing or using Next Seeker, you agree to be bound by these Terms and Conditions and all applicable laws and regulations.</p>
+                            <h2 className="text-2xl font-semibold text-foreground">{t("section1")}</h2>
+                            <p>{t("section1Content")}</p>
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">2. Use License</h2>
-                            <p>Permission is granted to use Next Seeker for personal, non-commercial use. This is the grant of a license, not a transfer of title.</p>
+                            <h2 className="text-2xl font-semibold text-foreground">{t("section2")}</h2>
+                            <p>{t("section2Content")}</p>
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">3. User Content</h2>
-                            <p>You are responsible for the content you post on Next Seeker. We do not claim ownership of your data, but you grant us a license to host it for the purpose of providing the service.</p>
+                            <h2 className="text-2xl font-semibold text-foreground">{t("section3")}</h2>
+                            <p>{t("section3Content")}</p>
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">4. Account Security</h2>
-                            <p>You are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer.</p>
+                            <h2 className="text-2xl font-semibold text-foreground">{t("section4")}</h2>
+                            <p>{t("section4Content")}</p>
                         </section>
 
                         <section className="space-y-4">
-                            <h2 className="text-2xl font-semibold text-foreground">5. Termination</h2>
-                            <p>We may terminate or suspend your account and bar access to the service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever.</p>
+                            <h2 className="text-2xl font-semibold text-foreground">{t("section5")}</h2>
+                            <p>{t("section5Content")}</p>
                         </section>
                     </div>
                 </div>
@@ -63,13 +71,13 @@ export default async function TermsPage({
 
             <footer className="py-6 border-t">
                 <div className="container px-4 md:px-6 mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
-                    <p>© 2025 Next Seeker. All rights reserved.</p>
+                    <p>© 2025 Next Seeker. {landingT('footer.builtFor')}</p>
                     <nav className="flex gap-4 sm:gap-6">
-                        <Link className="hover:underline" href={`/${locale}/pricing`}>Pricing</Link>
-                        <Link className="hover:underline" href={`/${locale}/terms-and-conditions`}>Terms</Link>
-                        <Link className="hover:underline" href={`/${locale}/privacy-policy`}>Privacy</Link>
-                        <Link className="hover:underline" href={`/${locale}/refund-policy`}>Refund</Link>
-                        <Link className="hover:underline" href={`/${locale}/specified-commercial-transactions`}>Commercial</Link>
+                        <Link className="hover:underline" href={`/${locale}/pricing`}>{footerT('pricing')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/terms-and-conditions`}>{footerT('terms')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/privacy-policy`}>{footerT('privacy')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/refund-policy`}>{footerT('refund')}</Link>
+                        <Link className="hover:underline" href={`/${locale}/specified-commercial-transactions`}>{footerT('commercial')}</Link>
                     </nav>
                 </div>
             </footer>

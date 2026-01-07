@@ -72,7 +72,7 @@ export default async function ApplicationsPage({
                     <p className="text-2xl font-bold">{stats.total}</p>
                 </div>
                 <div className="p-4 rounded-lg border bg-card">
-                    <p className="text-sm text-muted-foreground">Applied</p>
+                    <p className="text-sm text-muted-foreground">{statsT('applied')}</p>
                     <p className="text-2xl font-bold text-blue-500">{stats.applied}</p>
                 </div>
                 <div className="p-4 rounded-lg border bg-card">

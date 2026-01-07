@@ -8,6 +8,7 @@ export default async function SettingsPage({
 }) {
     const { locale } = await params;
     const t = await getTranslations('Common');
+    const settingsT = await getTranslations('Settings');
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
@@ -16,7 +17,7 @@ export default async function SettingsPage({
                     {t('settings')}
                 </h2>
                 <p className="text-muted-foreground mt-1">
-                    Manage your account preferences and application settings.
+                    {settingsT('settingsDesc')}
                 </p>
             </div>
 

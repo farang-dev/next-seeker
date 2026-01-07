@@ -97,7 +97,7 @@ export function DetailWorkspace({
                 .upsert(dataToSave, { onConflict: 'application_id,round_number' });
 
             if (error) throw error;
-            toast.success(`Round ${roundNum} updated`);
+            toast.success(t('roundUpdated', { number: roundNum }));
             router.refresh();
         } catch (error: any) {
             toast.error(error.message);
@@ -120,7 +120,7 @@ export function DetailWorkspace({
                 .eq('id', application.id);
 
             if (error) throw error;
-            toast.success('Information saved');
+            toast.success(t('infoSaved'));
             router.refresh();
         } catch (error: any) {
             toast.error(error.message);
@@ -134,7 +134,7 @@ export function DetailWorkspace({
             .from('application_questions')
             .insert({
                 application_id: application.id,
-                question: 'New Question',
+                question: t('newQuestion'),
                 sort_order: questions.length
             })
             .select()
@@ -186,7 +186,7 @@ export function DetailWorkspace({
             <Tabs defaultValue="interviews" className="space-y-4">
                 <TabsList className="grid grid-cols-5 w-full max-w-2xl">
                     <TabsTrigger value="motivation">{t('motivation')}</TabsTrigger>
-                    <TabsTrigger value="interviews">Interviews</TabsTrigger>
+                    <TabsTrigger value="interviews">{t('interviews')}</TabsTrigger>
                     <TabsTrigger value="prep">{t('interviewPrep')}</TabsTrigger>
                     <TabsTrigger value="questions">{t('questions')}</TabsTrigger>
                     <TabsTrigger value="notes">{t('notes')}</TabsTrigger>
@@ -202,7 +202,7 @@ export function DetailWorkspace({
                             <div className="space-y-2">
                                 <Label>{t('motivationLabel')}</Label>
                                 <Textarea
-                                    placeholder="I've always admired..."
+                                    placeholder={t('motivationPlaceholder')}
                                     className="min-h-[150px]"
                                     value={motivation}
                                     onChange={(e) => setMotivation(e.target.value)}
@@ -211,7 +211,7 @@ export function DetailWorkspace({
                             <div className="space-y-2">
                                 <Label>{t('fitLabel')}</Label>
                                 <Textarea
-                                    placeholder="This role bridges the gap..."
+                                    placeholder={t('fitPlaceholder')}
                                     className="min-h-[100px]"
                                     value={fitNotes}
                                     onChange={(e) => setFitNotes(e.target.value)}
@@ -227,12 +227,12 @@ export function DetailWorkspace({
                             <Card key={interview.round_number}>
                                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                                     <div className="space-y-1">
-                                        <CardTitle className="text-lg">Interview {interview.round_number}</CardTitle>
-                                        <CardDescription>Details and feedback for this round.</CardDescription>
+                                        <CardTitle className="text-lg">{t('interviewRound', { number: interview.round_number })}</CardTitle>
+                                        <CardDescription>{t('interviewRoundDesc')}</CardDescription>
                                     </div>
                                     <Button size="sm" onClick={() => handleSaveInterviews(interview.round_number)} disabled={loading}>
                                         <Save className="h-3.5 w-3.5 mr-1" />
-                                        Save Round
+                                        {t('saveRound')}
                                     </Button>
                                 </CardHeader>
                                 <CardContent className="grid gap-4">
@@ -240,7 +240,7 @@ export function DetailWorkspace({
                                         <div className="space-y-2">
                                             <Label className="flex items-center gap-2">
                                                 <Calendar className="h-4 w-4" />
-                                                Date & Time
+                                                {t('dateTime')}
                                             </Label>
                                             <Input
                                                 type="datetime-local"
@@ -257,10 +257,10 @@ export function DetailWorkspace({
                                         <div className="space-y-2">
                                             <Label className="flex items-center gap-2">
                                                 <MapPin className="h-4 w-4" />
-                                                Location / Link
+                                                {t('location')}
                                             </Label>
                                             <Input
-                                                placeholder="Zoom link or office address"
+                                                placeholder={t('locationPlaceholder')}
                                                 value={interview.location || ''}
                                                 onChange={(e) => {
                                                     setInterviews(interviews.map(i =>
@@ -275,10 +275,10 @@ export function DetailWorkspace({
                                     <div className="grid gap-2">
                                         <Label className="flex items-center gap-2">
                                             <FileText className="h-4 w-4" />
-                                            Preparation & Notes
+                                            {t('prepNotes')}
                                         </Label>
                                         <Textarea
-                                            placeholder="What they mentioned in the invite..."
+                                            placeholder={t('prepPlaceholder')}
                                             value={interview.notes || ''}
                                             onChange={(e) => {
                                                 setInterviews(interviews.map(i =>
@@ -292,10 +292,10 @@ export function DetailWorkspace({
                                     <div className="grid gap-2">
                                         <Label className="flex items-center gap-2">
                                             <MessageSquare className="h-4 w-4" />
-                                            Post-Interview Feedback
+                                            {t('feedback')}
                                         </Label>
                                         <Textarea
-                                            placeholder="How did it go? Any tricky questions?"
+                                            placeholder={t('feedbackPlaceholder')}
                                             value={interview.feedback || ''}
                                             onChange={(e) => {
                                                 setInterviews(interviews.map(i =>
@@ -361,7 +361,7 @@ export function DetailWorkspace({
                                         onBlur={(e) => handleUpdateQuestion(q.id, { question: e.target.value })}
                                     />
                                     <Textarea
-                                        placeholder="Answer or research..."
+                                        placeholder={t('answerPlaceholder')}
                                         value={q.answer || ''}
                                         onChange={(e) => handleUpdateQuestion(q.id, { answer: e.target.value })}
                                         onBlur={(e) => handleUpdateQuestion(q.id, { answer: e.target.value })}
@@ -373,7 +373,6 @@ export function DetailWorkspace({
                 </TabsContent>
 
                 <TabsContent value="notes">
-                    {/* Simplified for now, just a list of notes */}
                     <Card>
                         <CardHeader>
                             <CardTitle>{t('freeNotes')}</CardTitle>
@@ -381,8 +380,7 @@ export function DetailWorkspace({
                         </CardHeader>
                         <CardContent>
                             <div className="space-y-4 opacity-70">
-                                <p className="text-sm">Free notes and interview logs will appear here. Currently managed via global updates.</p>
-                                {/* Add note implementation could go here */}
+                                <p className="text-sm">{t('freeNotesInfo')}</p>
                             </div>
                         </CardContent>
                     </Card>

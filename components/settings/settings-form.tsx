@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname } from '@/i18n/navigation';
 import { useTheme } from 'next-themes';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -23,8 +23,9 @@ export function SettingsForm({ locale }: { locale: string }) {
     const t = useTranslations('Settings');
 
     const handleLanguageChange = (newLocale: string) => {
-        const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-        router.push(newPath);
+        // usePathname from i18n/navigation returns path WITHOUT locale.
+        // router.replace with {locale} option handles the switch correctly.
+        router.replace(pathname, { locale: newLocale as any });
     };
 
     return (
@@ -45,7 +46,7 @@ export function SettingsForm({ locale }: { locale: string }) {
                         </div>
                         <Select value={theme} onValueChange={setTheme}>
                             <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Select theme" />
+                                <SelectValue placeholder={t('selectTheme')} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="light">
@@ -85,7 +86,7 @@ export function SettingsForm({ locale }: { locale: string }) {
                         </div>
                         <Select value={locale} onValueChange={handleLanguageChange}>
                             <SelectTrigger className="w-[180px]">
-                                <SelectValue placeholder="Select language" />
+                                <SelectValue placeholder={t('selectLanguage')} />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="en">English</SelectItem>

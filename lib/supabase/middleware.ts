@@ -16,9 +16,15 @@ export async function updateSession(request: NextRequest, response?: NextRespons
                 },
                 setAll(cookiesToSet) {
                     cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
-                    supabaseResponse = NextResponse.next({
-                        request,
-                    })
+
+                    // If response is not a redirect, we can recreate it. 
+                    // But if it is, we MUST preserve it.
+                    if (supabaseResponse.status < 300 || supabaseResponse.status >= 400) {
+                        supabaseResponse = NextResponse.next({
+                            request,
+                        })
+                    }
+
                     cookiesToSet.forEach(({ name, value, options }) =>
                         supabaseResponse.cookies.set(name, value, options)
                     )
