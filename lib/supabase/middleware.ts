@@ -30,6 +30,10 @@ export async function updateSession(request: NextRequest, response?: NextRespons
                     )
                 },
             },
+            auth: {
+                autoRefreshToken: true,
+                persistSession: true,
+            },
         }
     )
 
