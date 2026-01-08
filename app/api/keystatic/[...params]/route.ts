@@ -7,6 +7,8 @@ const config = keystaticConfig({
             ? {
                 kind: 'github',
                 repo: (process.env.NEXT_PUBLIC_GITHUB_REPO as `${string}/${string}`) || 'farang-dev/next-seeker',
+                clientId: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID,
+                clientSecret: process.env.KEYSTATIC_GITHUB_CLIENT_SECRET,
             }
             : {
                 kind: 'local',
@@ -54,5 +56,5 @@ export const { GET, POST } = makeRouteHandler({
     config,
 });
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
