@@ -10,6 +10,12 @@ export default config({
                 kind: 'github',
                 repo: (process.env.NEXT_PUBLIC_GITHUB_REPO as `${string}/${string}`) || 'farang-dev/next-seeker',
             },
+    ui: {
+        brand: { name: 'Next Seeker Admin' },
+        navigation: {
+            'Content': ['posts'],
+        },
+    },
     collections: {
         posts: collection({
             label: 'Blog Posts',
