@@ -9,7 +9,7 @@ const config = keystaticConfig({
                 repo: (process.env.NEXT_PUBLIC_GITHUB_REPO as `${string}/${string}`) || 'farang-dev/next-seeker',
                 clientId: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID,
                 clientSecret: process.env.KEYSTATIC_GITHUB_CLIENT_SECRET,
-            }
+            } as any
             : {
                 kind: 'local',
             },
