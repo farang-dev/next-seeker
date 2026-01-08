@@ -2,13 +2,13 @@ import { config, fields, collection } from '@keystatic/core';
 
 export default config({
     storage:
-        process.env.NODE_ENV === 'development'
+        process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID
             ? {
-                kind: 'local',
-            }
-            : {
                 kind: 'github',
                 repo: (process.env.NEXT_PUBLIC_GITHUB_REPO as `${string}/${string}`) || 'farang-dev/next-seeker',
+            }
+            : {
+                kind: 'local',
             },
     ui: {
         brand: { name: 'Next Seeker Admin' },

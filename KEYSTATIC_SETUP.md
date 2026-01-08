@@ -42,7 +42,7 @@ Go to your [Vercel Project Settings](https://vercel.com/dashboard) > **Environme
 | Key | Value |
 | --- | --- |
 | `NEXT_PUBLIC_GITHUB_REPO` | `farang-dev/next-seeker` |
-| `KEYSTATIC_GITHUB_CLIENT_ID` | *(Paste your Client ID)* |
+| `NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID` | *(Paste your Client ID)* |
 | `KEYSTATIC_GITHUB_CLIENT_SECRET` | *(Paste your Client Secret)* |
 | `KEYSTATIC_SECRET` | *(Generate a random long string, e.g., using `openssl rand -hex 32`)* |
 
