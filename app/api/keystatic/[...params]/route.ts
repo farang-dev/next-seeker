@@ -2,9 +2,17 @@ import { makeRouteHandler } from '@keystatic/next/route-handler';
 import { config as keystaticConfig, fields, collection } from '@keystatic/core';
 
 const config = keystaticConfig({
-    storage: {
-        kind: 'local',
-    },
+    storage:
+        process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID
+            ? {
+                kind: 'github',
+                repo: 'farang-dev/next-seeker',
+                clientId: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID!,
+                clientSecret: process.env.KEYSTATIC_GITHUB_CLIENT_SECRET!,
+            } as any
+            : {
+                kind: 'local',
+            },
     ui: {
         brand: { name: 'Next Seeker Admin' },
         navigation: {
