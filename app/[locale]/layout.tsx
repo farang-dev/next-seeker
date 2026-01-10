@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     metadataBase: new URL('https://www.seeknext.online'),
     title: t('metaTitle'),
-    description: "Manage your career goals and job applications in one professional dashboard.",
+    description: t('metaDescription'),
     alternates: {
       canonical: `/${locale}`,
       languages: {

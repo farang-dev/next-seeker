@@ -2,7 +2,8 @@
     "Common": {
         "title": "Next Seeker",
         "subtitle": "Job Search Tracker",
-        "metaTitle": "Next Seeker | Job Search Tracker",
+        "metaTitle": "Next Seeker | Professional Job Application Tracker",
+        "metaDescription": "Manage your job search with a professional dashboard. Track applications, set career goals, and stay organized throughout your entire career journey.",
         "dashboard": "Dashboard",
         "applications": "Applications",
         "goals": "Career Goals",
