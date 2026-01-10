@@ -10,10 +10,9 @@ const intlMiddleware = createMiddleware({
 });
 
 export async function middleware(request: NextRequest) {
-    // 1. Skip middleware for Keystatic, API routes, and static assets
+    // 1. Skip middleware for API routes and static assets
     if (
-        request.nextUrl.pathname.startsWith('/keystatic') ||
-        request.nextUrl.pathname.startsWith('/api/keystatic') ||
+        request.nextUrl.pathname.startsWith('/api') ||
         request.nextUrl.pathname.startsWith('/_next') ||
         request.nextUrl.pathname.startsWith('/images') ||
         request.nextUrl.pathname.startsWith('/favicon.ico')

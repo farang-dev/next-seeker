@@ -7,25 +7,35 @@ export const contentfulClient = createClient({
 });
 
 export async function getBlogPosts(locale: string = 'en') {
-    const response = await contentfulClient.getEntries({
-        content_type: 'blogPost',
-        locale: locale === 'ja' ? 'ja' : 'en-US',
-        order: ['-fields.publishedDate'],
-    });
+    try {
+        const response = await contentfulClient.getEntries({
+            content_type: 'blogPost',
+            locale: locale === 'ja' ? 'ja' : 'en-US',
+            order: ['-fields.publishedDate'],
+        });
 
-    return response.items.map((item) => item.fields) as unknown as BlogPost[];
+        return response.items.map((item) => item.fields) as unknown as BlogPost[];
+    } catch (error) {
+        console.error('Contentful Error (getBlogPosts):', error);
+        return [];
+    }
 }
 
 export async function getBlogPostBySlug(slug: string, locale: string = 'en') {
-    const response = await contentfulClient.getEntries({
-        content_type: 'blogPost',
-        'fields.slug': slug,
-        locale: locale === 'ja' ? 'ja' : 'en-US',
-        limit: 1,
-    });
+    try {
+        const response = await contentfulClient.getEntries({
+            content_type: 'blogPost',
+            'fields.slug': slug,
+            locale: locale === 'ja' ? 'ja' : 'en-US',
+            limit: 1,
+        });
 
-    if (response.items.length === 0) return null;
-    return response.items[0].fields as unknown as BlogPost;
+        if (response.items.length === 0) return null;
+        return response.items[0].fields as unknown as BlogPost;
+    } catch (error) {
+        console.error('Contentful Error (getBlogPostBySlug):', error);
+        return null;
+    }
 }
 
 export const contentfulPreviewClient = createClient({
