@@ -17,14 +17,8 @@ export async function updateSession(request: NextRequest, response?: NextRespons
                 setAll(cookiesToSet) {
                     cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
 
-                    // If response is not a redirect, we can recreate it. 
-                    // But if it is, we MUST preserve it.
-                    if (supabaseResponse.status < 300 || supabaseResponse.status >= 400) {
-                        supabaseResponse = NextResponse.next({
-                            request,
-                        })
-                    }
-
+                    // We directly apply Supabase cookies to the response 
+                    // without recreating it, preserving intl or other cookies.
                     cookiesToSet.forEach(({ name, value, options }) =>
                         supabaseResponse.cookies.set(name, value, options)
                     )
@@ -37,8 +31,13 @@ export async function updateSession(request: NextRequest, response?: NextRespons
         }
     )
 
-    // refreshing the auth token
-    await supabase.auth.getUser()
+    // IMPORTANT: Avoid writing any logic between createServerClient and
+    // supabase.auth.getUser(). A simple mistake can make it very hard to debug
+    // auth issues.
+
+    const {
+        data: { user },
+    } = await supabase.auth.getUser()
 
     return supabaseResponse
 }
