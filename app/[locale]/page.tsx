@@ -25,7 +25,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               <div className="flex flex-col space-y-8 text-left animate-in fade-in slide-in-from-left-8 duration-1000">
                 <div className="space-y-4">
                   <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl leading-[1.15]">
-                    {landing('hero.titlePart1')}{" "}
+                    {landing('hero.titlePart1')}{locale !== 'ja' && " "}
                     <span className="relative inline-block whitespace-nowrap">
                       <span className="relative z-10 text-primary">{landing('hero.titleHighlight')}</span>
                       <span className="absolute bottom-1 left-0 w-full h-3 bg-primary/20 -z-1" />

@@ -18,8 +18,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const t = await getTranslations({ locale, namespace: 'Common' });
 
   return {
+    metadataBase: new URL('https://www.seeknext.online'),
     title: t('metaTitle'),
     description: "Manage your career goals and job applications in one professional dashboard.",
+    alternates: {
+      canonical: `/${locale}`,
+      languages: {
+        'en': '/en',
+        'ja': '/ja',
+      },
+    },
   };
 }
 
