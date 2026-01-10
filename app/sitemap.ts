@@ -2,6 +2,9 @@ import { MetadataRoute } from 'next';
 import { getBlogPosts } from '@/lib/contentful';
 import { BlogPost } from '@/types/blog';
 
+export const revalidate = 3600; // Update sitemap every hour
+export const dynamic = 'force-dynamic'; // Ensure it's not cached forever at build time
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.seeknext.online';
     const locales = ['en', 'ja'];
