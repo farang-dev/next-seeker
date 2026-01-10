@@ -46,7 +46,7 @@ export default async function BlogPage({
                                             </div>
                                         )}
                                         <CardHeader>
-                                            <CardTitle className="line-clamp-2">{post.title}</CardTitle>
+                                            <CardTitle className="text-xl leading-tight">{post.title}</CardTitle>
                                             <CardDescription>
                                                 {date && isValid(date) ? format(date, 'PPP', {
                                                     locale: locale === 'ja' ? ja : enUS
@@ -54,7 +54,7 @@ export default async function BlogPage({
                                             </CardDescription>
                                         </CardHeader>
                                         <CardContent>
-                                            <p className="text-muted-foreground line-clamp-3">{post.description}</p>
+                                            <p className="text-muted-foreground leading-relaxed">{post.description}</p>
                                         </CardContent>
                                     </Card>
                                 </Link>
