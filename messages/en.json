@@ -7,6 +7,7 @@
         "applications": "Applications",
         "goals": "Career Goals",
         "settings": "Settings",
+        "blog": "Blog",
         "logout": "Logout",
         "login": "Login",
         "signup": "Sign Up",
@@ -328,5 +329,13 @@
         "privacy": "Privacy",
         "refund": "Refund",
         "commercial": "Specified Commercial Transactions Act"
+    },
+    "Blog": {
+        "title": "Blog",
+        "subtitle": "Insights and tips for your professional journey.",
+        "readMore": "Read More",
+        "back": "Back to Blog",
+        "noPosts": "No blog posts found.",
+        "publishedOn": "Published on {date}"
     }
 }

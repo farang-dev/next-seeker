@@ -8,7 +8,8 @@ import {
     Briefcase,
     Target,
     Settings,
-    LogOut
+    LogOut,
+    Newspaper
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -19,6 +20,7 @@ const navItems = [
     { icon: LayoutDashboard, label: 'dashboard', href: '/dashboard' },
     { icon: Briefcase, label: 'applications', href: '/dashboard/applications' },
     { icon: Target, label: 'goals', href: '/dashboard/goals' },
+    { icon: Newspaper, label: 'blog', href: '/blog' },
     { icon: Settings, label: 'settings', href: '/dashboard/settings' },
 ];
 

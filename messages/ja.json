@@ -7,6 +7,7 @@
         "applications": "応募管理",
         "goals": "キャリア目標",
         "settings": "設定",
+        "blog": "ブログ",
         "logout": "ログアウト",
         "login": "ログイン",
         "signup": "新規登録",
@@ -328,5 +329,13 @@
         "privacy": "プライバシー情報",
         "refund": "返金ポリシー",
         "commercial": "特定商取引法に基づく表記"
+    },
+    "Blog": {
+        "title": "ブログ",
+        "subtitle": "プロフェッショナルな旅に役立つインサイトとヒント。",
+        "readMore": "続きを読む",
+        "back": "ブログ一覧に戻る",
+        "noPosts": "記事が見つかりませんでした。",
+        "publishedOn": "公開日: {date}"
     }
 }
