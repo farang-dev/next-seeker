@@ -9,15 +9,20 @@ import { Button } from '@/components/ui/button';
 
 export async function generateStaticParams() {
     // Generate static params for all posts in both languages
-    const enPosts = await getBlogPosts('en');
-    const jaPosts = await getBlogPosts('ja');
+    try {
+        const enPosts = await getBlogPosts('en');
+        const jaPosts = await getBlogPosts('ja');
 
-    const params = [
-        ...enPosts.map((post) => ({ locale: 'en', slug: post.slug })),
-        ...jaPosts.map((post) => ({ locale: 'ja', slug: post.slug })),
-    ];
+        const params = [
+            ...enPosts.map((post) => ({ locale: 'en', slug: post.slug })),
+            ...jaPosts.map((post) => ({ locale: 'ja', slug: post.slug })),
+        ];
 
-    return params;
+        return params;
+    } catch (error) {
+        console.error('Failed to generate static params for blog:', error);
+        return [];
+    }
 }
 
 export default async function BlogPostPage({
