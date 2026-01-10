@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,6 +15,9 @@ type AuthMode = 'login' | 'signup' | 'forgot-password';
 export default function LoginPage() {
     const t = useTranslations('Common');
     const auth = useTranslations('Auth');
+    const params = useParams();
+    const currentLocale = (params?.locale as string) || 'en';
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [fullName, setFullName] = useState('');
@@ -39,14 +42,12 @@ export default function LoginPage() {
         setLoading(true);
 
         try {
-            const locale = window.location.pathname.split('/')[1] || 'en';
-
             if (mode === 'signup') {
                 const { error } = await supabase.auth.signUp({
                     email,
                     password,
                     options: {
-                        emailRedirectTo: `${window.location.origin}/auth/callback?locale=${locale}`,
+                        emailRedirectTo: `${window.location.origin}/auth/callback?locale=${currentLocale}`,
                         data: {
                             full_name: fullName,
                         }
@@ -60,12 +61,14 @@ export default function LoginPage() {
                     password,
                 });
                 if (error) throw error;
-                router.push(`/${locale}/dashboard`);
+
+                // Redirect to the correct dashboard path
+                router.push(`/${currentLocale}/dashboard`);
                 router.refresh();
             } else if (mode === 'forgot-password') {
                 const query = new URLSearchParams({
-                    next: `/${locale}/reset-password`,
-                    locale: locale
+                    next: `/${currentLocale}/reset-password`,
+                    locale: currentLocale
                 }).toString();
 
                 const { error } = await supabase.auth.resetPasswordForEmail(email, {
