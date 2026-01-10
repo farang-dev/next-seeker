@@ -25,7 +25,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         </Link>
         <nav className="ml-auto flex items-center gap-4 sm:gap-6">
           <Link className="text-sm font-medium hover:text-primary transition-colors" href={`/${locale}/blog`}>
-            Blog
+            {common('blog')}
           </Link>
           <Link className="text-sm font-medium hover:text-primary transition-colors" href={`/${locale}/login`}>
             {common('login')}
@@ -144,7 +144,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <p className="text-xs text-muted-foreground">© 2025 Next Seeker. {landing('footer.builtFor')}</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/blog`}>
-            Blog
+            {common('blog')}
           </Link>
           <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/pricing`}>
             {t('pricing')}
