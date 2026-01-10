@@ -3,38 +3,19 @@ import { Target, Briefcase, TrendingUp, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
+
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getTranslations("Footer");
-  const common = await getTranslations("Common");
   const landing = await getTranslations("Landing");
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="px-6 lg:px-12 h-20 flex items-center border-b">
-        <Link className="flex items-center justify-center gap-2" href="#">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
-            <Target className="w-5 h-5" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tight leading-none">Next Seeker</span>
-            <span className="text-[10px] font-medium text-muted-foreground mt-0.5">
-              {common('subtitle')}
-            </span>
-          </div>
-        </Link>
-        <nav className="ml-auto flex items-center gap-4 sm:gap-6">
-          <Link className="text-sm font-medium hover:text-primary transition-colors" href={`/${locale}/blog`}>
-            {common('blog')}
-          </Link>
-          <Link className="text-sm font-medium hover:text-primary transition-colors" href={`/${locale}/login`}>
-            {common('login')}
-          </Link>
-        </nav>
-      </header>
+      <Header locale={locale} />
       <main className="flex-1">
         <section className="relative w-full overflow-hidden bg-background pt-8 md:pt-12 lg:pt-16 pb-12">
-          {/* Background Decorative Element */}
+          {/* ... existing section content ... */}
           <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -z-10" />
           <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -z-10" />
 
@@ -64,7 +45,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   </Button>
                 </div>
 
-                {/* Trust Badges or additional info if needed */}
+                {/* Trust Badges */}
                 <div className="flex items-center gap-6 pt-8 border-t border-muted">
                   <div className="flex flex-col">
                     <span className="text-2xl font-bold">100+</span>
@@ -87,25 +68,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     className="w-full h-auto object-cover transform hover:scale-[1.02] transition-transform duration-700"
                   />
                 </div>
-
-                {/* Floating Decorative Elements */}
                 <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/10 rounded-full blur-2xl -z-10 animate-pulse" />
                 <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-primary/10 rounded-full blur-2xl -z-10 animate-pulse delay-700" />
-
-                {/* Glassy Accent Card */}
-                <div className="absolute -bottom-4 -right-10 hidden xl:flex p-6 rounded-2xl bg-background/80 backdrop-blur-xl border shadow-2xl space-y-2 max-w-[200px]">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                    <span className="text-xs font-bold uppercase tracking-tighter text-muted-foreground">Live Tracking</span>
-                  </div>
-                  <p className="text-sm font-semibold">Your career, organized.</p>
-                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Features Section with better spacing */}
+        {/* Features Section */}
         <section className="w-full py-24 lg:py-32 bg-muted/30">
           <div className="container px-4 md:px-6 mx-auto">
             <div className="grid gap-12 lg:grid-cols-3">
@@ -114,55 +84,27 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   <Target className="h-6 w-6" />
                 </div>
                 <h3 className="text-xl font-bold">{landing('features.goal.title')}</h3>
-                <p className="text-muted-foreground">
-                  {landing('features.goal.desc')}
-                </p>
+                <p className="text-muted-foreground">{landing('features.goal.desc')}</p>
               </div>
               <div className="flex flex-col items-center space-y-3 text-center">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                   <Briefcase className="h-6 w-6" />
                 </div>
                 <h3 className="text-xl font-bold">{landing('features.workspace.title')}</h3>
-                <p className="text-muted-foreground">
-                  {landing('features.workspace.desc')}
-                </p>
+                <p className="text-muted-foreground">{landing('features.workspace.desc')}</p>
               </div>
               <div className="flex flex-col items-center space-y-3 text-center">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                   <TrendingUp className="h-6 w-6" />
                 </div>
                 <h3 className="text-xl font-bold">{landing('features.growth.title')}</h3>
-                <p className="text-muted-foreground">
-                  {landing('features.growth.desc')}
-                </p>
+                <p className="text-muted-foreground">{landing('features.growth.desc')}</p>
               </div>
             </div>
           </div>
         </section>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-muted-foreground">© 2025 Next Seeker. {landing('footer.builtFor')}</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/blog`}>
-            {common('blog')}
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/pricing`}>
-            {t('pricing')}
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/terms-and-conditions`}>
-            {t('terms')}
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/privacy-policy`}>
-            {t('privacy')}
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/refund-policy`}>
-            {t('refund')}
-          </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href={`/${locale}/specified-commercial-transactions`}>
-            {t('commercial')}
-          </Link>
-        </nav>
-      </footer>
+      <Footer locale={locale} />
     </div>
   );
 }

@@ -35,6 +35,7 @@ export async function getBlogPosts(locale: string = 'en') {
             content_type: 'blogPost',
             locale: locale === 'ja' ? 'ja' : 'en-US',
             order: ['-fields.publishedDate'],
+            include: 2, // Ensure assets are resolved
         });
 
         return response.items.map((item) => item.fields) as unknown as BlogPost[];
@@ -54,6 +55,7 @@ export async function getBlogPostBySlug(slug: string, locale: string = 'en') {
             'fields.slug': slug,
             locale: locale === 'ja' ? 'ja' : 'en-US',
             limit: 1,
+            include: 2, // Ensure assets are resolved
         });
 
         if (response.items.length === 0) return null;

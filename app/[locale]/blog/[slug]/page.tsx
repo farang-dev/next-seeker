@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getTranslations } from 'next-intl/server';
+import BlogCTA from '@/components/blog/blog-cta';
 
 export async function generateStaticParams() {
     try {
@@ -70,6 +71,10 @@ export default async function BlogPostPage({
             <div className="prose prose-lg dark:prose-invert max-w-none">
                 <RichTextResponse content={post.content} />
             </div>
+
+            <hr className="my-16" />
+
+            <BlogCTA locale={locale} />
         </article>
     );
 }

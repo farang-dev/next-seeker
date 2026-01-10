@@ -336,6 +336,9 @@
         "readMore": "続きを読む",
         "back": "ブログ一覧に戻る",
         "noPosts": "記事が見つかりませんでした。",
-        "publishedOn": "公開日: {date}"
+        "publishedOn": "公開日: {date}",
+        "ctaTitle": "キャリアを加速させる準備はできていますか？",
+        "ctaSubtitle": "100人以上のプロフェッショナルがNext Seekerを利用して、応募状況を管理し、キャリア目標を達成しています。",
+        "ctaButton": "無料で始める"
     }
 }

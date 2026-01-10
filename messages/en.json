@@ -13,321 +13,208 @@
         "signup": "Sign Up",
         "fullName": "Full Name",
         "forgotPassword": "Forgot Password?",
-        "resetPassword": "Reset Password",
-        "sendResetLink": "Send Reset Link",
-        "backToLogin": "Back to Login",
-        "updatePassword": "Update Password",
-        "newPassword": "New Password",
-        "confirmPassword": "Confirm Password",
-        "passwordResetSent": "Password reset link sent to your email.",
-        "passwordUpdated": "Password updated successfully.",
-        "passwordError": "Password must be at least 8 characters and include numbers and symbols.",
-        "userProfile": "User Profile",
-        "signOut": "Sign Out",
-        "email": "Email",
-        "password": "Password",
-        "processing": "Processing...",
-        "passwordsDoNotMatch": "Passwords do not match",
-        "updatePasswordDesc": "Enter your new password below.",
-        "updating": "Updating..."
-    },
-    "Statuses": {
-        "Draft": "Draft",
-        "Applied": "Applied",
-        "Interview": "Interview",
-        "Offer": "Offer",
-        "Rejected": "Rejected",
-        "Archived": "Archived"
-    },
-    "Priorities": {
-        "High": "High",
-        "Medium": "Medium",
-        "Low": "Low"
-    },
-    "Auth": {
-        "signupDesc": "Create an account to track your career",
-        "forgotDesc": "Enter your email to receive a reset link",
-        "loginDesc": "Enter your email to sign in to your dashboard",
-        "alreadyHaveAccount": "Already have an account?",
-        "dontHaveAccount": "Don't have an account?",
-        "signupSuccess": "Check your email to confirm your account!"
-    },
-    "Dashboard": {
-        "greeting": {
-            "morning": "Good morning",
-            "afternoon": "Good afternoon",
-            "evening": "Good evening"
-        },
-        "welcome": "Welcome back",
-        "overview": "Overview",
-        "subtitle": "Here is what's happening with your career goals and job applications.",
-        "stats": {
-            "total": "Total",
-            "applied": "Applied",
-            "interviews": "Interviews",
-            "offers": "Offers"
-        },
-        "recentApps": "Recent Applications",
-        "noApps": "No recent applications.",
-        "addFirst": "Add your first one",
-        "prepTip": "Preparation Tip",
-        "tipText": "\"Always align your answers with your 5-year goal. It shows foresight and stability to employers.\"",
-        "readyQuestion": "Ready for your next interview?",
-        "readyDesc": "Make sure to update your 'Questions for the Company' list for active applications."
-    },
-    "Goals": {
-        "title": "Career Goals",
-        "subtitle": "Define your long-term vision to stay focused during your job search.",
-        "threeYear": "3-Year Goal",
-        "fiveYear": "5-Year Goal",
-        "tenYear": "10-Year Goal",
-        "edit": "Edit Goal",
-        "save": "Save Changes",
-        "whyTitle": "Why define career goals?",
-        "whyDesc": "Having a clear 10-year vision helps you evaluate if a current job offer is truly a stepping stone or just a distraction. Use these goals as a filter when browsing job listings and preparing for interviews.",
-        "goalTitle": "Goal Title",
-        "description": "Description",
-        "notesRoadmap": "Notes / Roadmap",
-        "placeholderTitle": "e.g. Senior Full Stack Engineer",
-        "placeholderDesc": "What does success look like?",
-        "placeholderNotes": "Specific skills to learn or milestones...",
-        "saveGoal": "Save Goal",
-        "goalUpdated": "{type} goal updated!",
-        "whereSeeYourself": "Where do you see yourself in {years} years?",
-        "notSet": "Not set yet",
-        "clickToSet": "Click to set your goal"
-    },
-    "Applications": {
-        "title": "Job Applications",
-        "subtitle": "Manage and track all your active job applications in one place.",
-        "addNew": "Add Application",
-        "addTitle": "Add New Application",
-        "addDesc": "Start tracking a new job opportunity. You can fill in the details later.",
-        "companyLabel": "Company Name",
-        "jobTitleLabel": "Job Title",
-        "jobUrlLabel": "Job URL (optional)",
-        "statusLabel": "Status",
-        "priorityLabel": "Priority",
-        "adding": "Adding...",
-        "addSuccess": "Application added successfully!",
-        "status": "Status",
-        "priority": "Priority",
-        "company": "Company",
-        "role": "Role",
-        "date": "Applied Date",
-        "empty": "No applications found. Start your journey by adding one!",
-        "searchPlaceholder": "Search company or title...",
-        "allStatus": "All Status",
-        "allPriority": "All Priority",
-        "downloadCSV": "Download CSV",
-        "select": "Select",
-        "cancelSelection": "Cancel Selection",
-        "deleteSelected": "Delete ({count})",
-        "viewDetails": "View Details",
-        "editApplication": "Edit Application",
-        "delete": "Delete",
-        "actions": "Actions",
-        "confirmDelete": "Are you sure you want to delete the selected application(s)?",
-        "deleteSuccess": "Successfully deleted {count} application(s)",
-        "deleteError": "Failed to delete applications",
-        "updateSuccess": "Updated successfully",
-        "updateError": "Failed to update",
-        "saving": "Saving...",
-        "cancel": "Cancel",
-        "saveChanges": "Save Changes",
-        "jobUrl": "Job URL",
-        "optional": "optional",
-        "editDialogSubtitle": "Update the details for this job application."
-    },
-    "Detail": {
-        "motivation": "Motivation",
-        "interviews": "Interviews",
-        "interviewPrep": "Interview Prep",
-        "questions": "Questions",
-        "notes": "Notes",
-        "whyApplied": "Why I applied",
-        "whyAppliedDesc": "Reflect on your motivation for this specific company and role.",
-        "motivationLabel": "Motivation (Why this company?)",
-        "motivationPlaceholder": "I've always admired...",
-        "fitLabel": "Career Goal Fit (How it fits your goals)",
-        "fitPlaceholder": "This role bridges the gap...",
-        "prepMaterial": "Preparation Material",
-        "prepDesc": "Store your research and talking points here.",
-        "pitchLabel": "Personal Pitch / Introduction",
-        "researchLabel": "Company Research / Key Products",
-        "questionsTitle": "Questions for the Company",
-        "questionsDesc": "Keep a list of questions you want to ask during interviews.",
-        "addQuestion": "Add Question",
-        "newQuestion": "New Question",
-        "freeNotes": "Free Notes & Feedback",
-        "freeNotesDesc": "Anything else you learned or want to keep track of.",
-        "freeNotesInfo": "Free notes and interview logs will appear here.",
-        "saveChanges": "Save Changes",
-        "viewListing": "View Listing",
-        "round": "Round {number}",
-        "interviewRound": "Interview {number}",
-        "interviewRoundDesc": "Details and feedback for this round.",
-        "saveRound": "Save Round",
-        "roundUpdated": "Round {number} updated",
-        "infoSaved": "Information saved",
-        "dateTime": "Date & Time",
-        "location": "Location / Link",
-        "locationPlaceholder": "Zoom link or office address",
-        "prepNotes": "Preparation & Notes",
-        "prepPlaceholder": "What they mentioned in the invite...",
-        "feedback": "Post-Interview Feedback",
-        "feedbackPlaceholder": "How did it go? Any tricky questions?",
-        "answerPlaceholder": "Answer or research..."
-    },
-    "Settings": {
-        "appearance": "Appearance",
-        "appearanceDesc": "Customize how Next Seeker looks on your screen.",
-        "settingsDesc": "Manage your account preferences and application settings.",
-        "theme": "Theme Preference",
-        "themeDesc": "Select your preferred color theme.",
-        "light": "Light",
-        "dark": "Dark",
-        "system": "System",
-        "language": "Language & Region",
-        "languageDesc": "Select your preferred language for the interface.",
-        "interfaceLanguage": "Interface Language",
-        "interfaceLanguageDesc": "This will change the language of the dashboard.",
-        "selectTheme": "Select theme",
-        "selectLanguage": "Select language",
-        "dangerZone": "Danger Zone",
-        "dangerZoneDesc": "Permanent actions regarding your account.",
-        "deleteAccount": "Delete Account & Data"
-    },
-    "Privacy": {
-        "title": "Privacy Policy",
-        "lastUpdated": "Last Updated: December 25, 2025",
-        "intro": "At Next Seeker, we take your privacy seriously. This policy explains how we collect, use, and protect your information.",
-        "section1": "1. Information We Collect",
-        "section1Content": "We collect information you provide directly to us when you create an account, such as your name and email address. We also collect data regarding your job applications and career goals to provide our service.",
-        "section2": "2. How We Use Your Information",
-        "section2Content": "We use the information we collect to provide, maintain, and improve our services, to develop new ones, and to protect Next Seeker and our users.",
-        "section2List1": "To manage your job applications and dashboard.",
-        "section2List2": "To synchronize your data across devices.",
-        "section2List3": "To send you important notifications about your account.",
-        "section3": "3. Data Security",
-        "section3Content": "We work hard to protect Next Seeker and our users from unauthorized access to or unauthorized alteration, disclosure, or destruction of information we hold.",
-        "section4": "4. Contact Us",
-        "section4Content": "If you have any questions about this Privacy Policy, please contact us at support@nextseeker.com."
-    },
-    "Terms": {
-        "title": "Terms and Conditions",
-        "lastUpdated": "Last Updated: December 25, 2025",
-        "intro": "By using Next Seeker, you agree to the following terms and conditions. Please read them carefully.",
-        "section1": "1. Acceptance of Terms",
-        "section1Content": "By accessing or using Next Seeker, you agree to be bound by these Terms and Conditions and all applicable laws and regulations.",
-        "section2": "2. Use License",
-        "section2Content": "Permission is granted to use Next Seeker for personal, non-commercial use. This is the grant of a license, not a transfer of title.",
-        "section3": "3. User Content",
-        "section3Content": "You are responsible for the content you post on Next Seeker. We do not claim ownership of your data, but you grant us a license to host it for the purpose of providing the service.",
-        "section4": "4. Account Security",
-        "section4Content": "You are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer.",
-        "section5": "5. Termination",
-        "section5Content": "We may terminate or suspend your account and bar access to the service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever."
-    },
-    "Refund": {
-        "title": "Refund Policy",
-        "lastUpdated": "Last Updated: December 25, 2025",
-        "intro": "We want you to be happy with Next Seeker. If you are not satisfied, please read our refund policy below.",
-        "section1": "1. Refund Eligibility",
-        "section1Content": "We offer a 14-day money-back guarantee for our Unlimited Premium plan if you are not satisfied with the service. To be eligible for a refund, you must submit your request within 14 days of your purchase.",
-        "section2": "2. Process for Refunds",
-        "section2Content": "To request a refund, please email us at support@nextseeker.com with your account details and the reason for your request. We will process your refund within 5-10 business days.",
-        "section3": "3. Non-refundable Situations",
-        "section3Content": "Requests made after the 14-day window are generally not eligible for a refund. Additionally, accounts that have violated our Terms of Service are not eligible for refunds.",
-        "section4": "4. Changes to This Policy",
-        "section4Content": "We reserve the right to modify this refund policy at any time. Changes will be effective immediately upon posting to this page."
-    },
-    "Pricing": {
-        "title": "Simple, Transparent Pricing",
-        "subtitle": "Choose the plan that's right for your career journey.",
-        "free": {
-            "name": "Free",
-            "price": "$0",
-            "description": "Perfect for getting started with your job search.",
-            "features": [
-                "Up to 10 Job Applications",
-                "Basic Career Goals Tracking",
-                "Interview Preparation Workspace",
-                "Dashboard Overview"
-            ]
-        },
-        "premium": {
-            "name": "Unlimited Premium",
-            "price": "$6",
-            "period": "one-time",
-            "description": "Unlock everything and take control of your career.",
-            "features": [
-                "Unlimited Job Applications",
-                "Advanced Career Goals Tracking",
-                "Priority Support",
-                "Lifetime Access"
-            ]
-        },
-        "cta": "Get Started",
-        "upgrade": "Upgrade Now",
-        "mostPopular": "Most Popular"
-    },
-    "Commercial": {
-        "title": "Specified Commercial Transactions Act",
-        "distributor": "Business Name",
-        "distributorValue": "Masafumi Nozawa",
-        "representative": "Representative",
-        "representativeValue": "Masafumi Nozawa",
-        "address": "Address",
-        "addressValue": "1-9-10, Sangenjaya, Setagaya-ku, Tokyo, Japan",
-        "phone": "Phone Number",
-        "phoneValue": "+81 80-4118-5474 (Hours: 10:00-18:00 JST, excluding weekends/holidays)",
         "email": "Email Address",
-        "emailValue": "mf.nozawa@gmail.com",
-        "price": "Sales Price",
-        "priceValue": "Amount listed on each plan's application page (prices include tax)",
-        "fees": "Additional Charges",
-        "feesValue": "Internet connection fees and other telecommunication costs are the responsibility of the customer.",
-        "paymentMethod": "Payment Method",
-        "paymentMethodValue": "Credit Card",
-        "paymentTiming": "Payment Timing",
-        "paymentTimingValue": "Processed on the billing date of each credit card company.",
-        "deliveryTiming": "Delivery Timing",
-        "deliveryTimingValue": "Services are available immediately after purchase completion.",
-        "returns": "Returns and Cancellations",
-        "returnsValue": "[Customer Convenience]\nDue to the nature of digital contents and services, returns and cancellations are not accepted after purchase.\n\n[Service Defects]\nIn the unlikely event of a service defect, please contact us at the email address above. We will investigate and respond accordingly."
+        "password": "Password",
+        "confirmPassword": "Confirm Password",
+        "save": "Save Changes",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "loading": "Loading...",
+        "error": "Something went wrong",
+        "success": "Success",
+        "noData": "No data found",
+        "actions": "Actions",
+        "edit": "Edit",
+        "back": "Back",
+        "next": "Next",
+        "finish": "Finish"
     },
     "Landing": {
         "hero": {
-            "titlePart1": "Manage Your Career,",
-            "titleHighlight": "Not Just Your Applications",
-            "subtitle": "The professional dashboard for job seekers. Align every application with your 5-year goal and ace your interviews with proper preparation.",
+            "titlePart1": "Take Control of Your",
+            "titleHighlight": "Career Journey",
+            "subtitle": "The smart way to track job applications, set career goals, and land your dream role. All in one professional dashboard.",
             "ctaFree": "Get Started for Free",
             "ctaDemo": "View Demo"
         },
         "features": {
             "goal": {
-                "title": "Goal-Driven Application",
-                "desc": "Map your 3, 5, and 10-year career goals and ensure every job application brings you closer to them."
+                "title": "100+ Jobs Tracker",
+                "desc": "Organize your job hunt with a professional pipeline."
             },
             "workspace": {
-                "title": "Interview Workspace",
-                "desc": "A dedicated space for each application to store research, personal pitches, and tailored questions."
+                "title": "Smart Workspace",
+                "desc": "Manage every application detail in one clean interface."
             },
             "growth": {
-                "title": "Track Growth",
-                "desc": "Monitor your progress across multiple statuses and companies with a clean, professional dashboard."
+                "title": "Career Growth",
+                "desc": "Set goals and track your progress to the next level."
             }
         },
         "footer": {
-            "builtFor": "Proudly built for career seekers."
+            "builtFor": "Built for career seekers."
+        }
+    },
+    "Dashboard": {
+        "welcome": "Welcome back",
+        "stats": {
+            "activeApplications": "Active Applications",
+            "goalsCompleted": "Goals Completed",
+            "successRate": "Success Rate",
+            "totalTracked": "Total Tracked"
+        },
+        "recentApplications": "Recent Applications",
+        "upcomingGoals": "Upcoming Goals",
+        "viewAll": "View All"
+    },
+    "Applications": {
+        "title": "Applications",
+        "add": "Add Application",
+        "edit": "Edit Application",
+        "company": "Company",
+        "role": "Role",
+        "status": "Status",
+        "date": "Applied Date",
+        "url": "Job URL",
+        "description": "Description",
+        "notes": "Notes",
+        "salary": "Salary Range",
+        "location": "Location",
+        "statuses": {
+            "draft": "Draft",
+            "applied": "Applied",
+            "interviewing": "Interviewing",
+            "offered": "Offered",
+            "rejected": "Rejected",
+            "withdrawn": "Withdrawn"
+        }
+    },
+    "Goals": {
+        "title": "Career Goals",
+        "add": "Add Goal",
+        "edit": "Edit Goal",
+        "name": "Goal Name",
+        "targetDate": "Target Date",
+        "category": "Category",
+        "progress": "Progress",
+        "priority": {
+            "low": "Low",
+            "medium": "Medium",
+            "high": "High"
+        }
+    },
+    "Settings": {
+        "title": "Settings",
+        "profile": "Profile Info",
+        "account": "Account Settings",
+        "notifications": "Notifications",
+        "appearance": "Appearance",
+        "language": "Language",
+        "theme": {
+            "light": "Light",
+            "dark": "Dark",
+            "system": "System"
+        }
+    },
+    "Login": {
+        "title": "Log in to Next Seeker",
+        "description": "Enter your email to access your dashboard",
+        "submit": "Log In",
+        "noAccount": "Don't have an account?",
+        "signup": "Sign up"
+    },
+    "Signup": {
+        "title": "Create an account",
+        "description": "Start tracking your career today",
+        "submit": "Sign Up",
+        "haveAccount": "Already have an account?",
+        "login": "Log in"
+    },
+    "Pricing": {
+        "title": "Simple Pricing",
+        "subtitle": "Choose the plan that's right for you",
+        "free": {
+            "name": "Free",
+            "price": "$0",
+            "description": "Perfect for starters",
+            "features": [
+                "Up to 10 job applications",
+                "Basic career goals",
+                "Dashboard access",
+                "Community support"
+            ]
+        },
+        "premium": {
+            "name": "Unlimited",
+            "price": "$6",
+            "description": "One-time payment for lifetime access",
+            "features": [
+                "Unlimited job applications",
+                "Infinite career goals",
+                "Priority support",
+                "Detailed analytics",
+                "Custom statuses"
+            ]
+        },
+        "cta": "Get Started"
+    },
+    "Paywall": {
+        "title": "Unlock Unlimited Access",
+        "description": "You've reached the free limit of 10 job applications. Upgrade for a one-time fee of $6 to track unlimited applications forever.",
+        "button": "Upgrade to Unlimited - $6",
+        "alreadyPremium": "You're already a Premium user! Enjoy unlimited tracking.",
+        "processing": "Processing your payment...",
+        "success": "Welcome to Premium! Unlimited access is now active.",
+        "error": "Payment failed. Please try again."
+    },
+    "SpecifiedCommercial": {
+        "title": "Specified Commercial Transactions Act",
+        "businessName": {
+            "label": "Business Name",
+            "value": "Fumi Nozawa"
+        },
+        "representative": {
+            "label": "Representative",
+            "value": "Fumi Nozawa"
+        },
+        "location": {
+            "label": "Location",
+            "value": "Request via email without delay"
+        },
+        "contact": {
+            "label": "Contact Information",
+            "value": "Email: fumi.nozawa@seeker.com (We respond within 24 hours)"
+        },
+        "price": {
+            "label": "Selling Price",
+            "value": "Display on the pricing page"
+        },
+        "otherFees": {
+            "label": "Fees other than the product price",
+            "value": "No other fees"
+        },
+        "paymentMethod": {
+            "label": "Payment Method",
+            "value": "Credit Card (Stripe)"
+        },
+        "paymentTime": {
+            "label": "Payment Timing",
+            "value": "Processed immediately upon order"
+        },
+        "deliveryTime": {
+            "label": "Service Delivery Time",
+            "value": "Available immediately after payment completion"
+        },
+        "refund": {
+            "label": "Returns and Refunds",
+            "value": "Due to the nature of digital services, no refunds are provided after purchase."
         }
     },
     "Footer": {
         "pricing": "Pricing",
-        "terms": "Terms",
-        "privacy": "Privacy",
-        "refund": "Refund",
+        "terms": "Terms & Conditions",
+        "privacy": "Privacy Policy",
+        "refund": "Refund Policy",
         "commercial": "Specified Commercial Transactions Act"
     },
     "Blog": {
@@ -336,6 +223,9 @@
         "readMore": "Read More",
         "back": "Back to Blog",
         "noPosts": "No blog posts found.",
-        "publishedOn": "Published on {date}"
+        "publishedOn": "Published on {date}",
+        "ctaTitle": "Ready to supercharge your career?",
+        "ctaSubtitle": "Join 100+ professionals using Next Seeker to track applications and achieve their career goals.",
+        "ctaButton": "Get Started for Free"
     }
 }

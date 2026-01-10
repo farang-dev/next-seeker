@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { format, isValid } from 'date-fns';
 import { ja, enUS } from 'date-fns/locale';
 import { getTranslations } from 'next-intl/server';
+import BlogCTA from '@/components/blog/blog-cta';
 
 export default async function BlogPage({
     params,
@@ -26,39 +27,43 @@ export default async function BlogPage({
                     <p className="text-lg text-muted-foreground">{t('noPosts')}</p>
                 </div>
             ) : (
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {posts.map((post) => {
-                        const date = post.publishedDate ? new Date(post.publishedDate) : null;
-                        const imageUrl = post.featuredImage?.fields?.file?.url;
+                <>
+                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                        {posts.map((post) => {
+                            const date = post.publishedDate ? new Date(post.publishedDate) : null;
+                            const imageUrl = post.featuredImage?.fields?.file?.url;
 
-                        return (
-                            <Link key={post.slug} href={`/${locale}/blog/${post.slug}`}>
-                                <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
-                                    {imageUrl && (
-                                        <div className="aspect-video relative overflow-hidden rounded-t-lg">
-                                            <img
-                                                src={`https:${imageUrl}`}
-                                                alt={post.title}
-                                                className="object-cover w-full h-full"
-                                            />
-                                        </div>
-                                    )}
-                                    <CardHeader>
-                                        <CardTitle className="line-clamp-2">{post.title}</CardTitle>
-                                        <CardDescription>
-                                            {date && isValid(date) ? format(date, 'PPP', {
-                                                locale: locale === 'ja' ? ja : enUS
-                                            }) : ''}
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <p className="text-muted-foreground line-clamp-3">{post.description}</p>
-                                    </CardContent>
-                                </Card>
-                            </Link>
-                        );
-                    })}
-                </div>
+                            return (
+                                <Link key={post.slug} href={`/${locale}/blog/${post.slug}`}>
+                                    <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer">
+                                        {imageUrl && (
+                                            <div className="aspect-video relative overflow-hidden rounded-t-lg">
+                                                <img
+                                                    src={`https:${imageUrl}`}
+                                                    alt={post.title}
+                                                    className="object-cover w-full h-full"
+                                                />
+                                            </div>
+                                        )}
+                                        <CardHeader>
+                                            <CardTitle className="line-clamp-2">{post.title}</CardTitle>
+                                            <CardDescription>
+                                                {date && isValid(date) ? format(date, 'PPP', {
+                                                    locale: locale === 'ja' ? ja : enUS
+                                                }) : ''}
+                                            </CardDescription>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <p className="text-muted-foreground line-clamp-3">{post.description}</p>
+                                        </CardContent>
+                                    </Card>
+                                </Link>
+                            );
+                        })}
+                    </div>
+
+                    <BlogCTA locale={locale} />
+                </>
             )}
         </div>
     );
