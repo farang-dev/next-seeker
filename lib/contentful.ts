@@ -6,20 +6,31 @@ let client: ContentfulClientApi<undefined>;
 export function getClient() {
     if (client) return client;
 
-    if (!process.env.CONTENTFUL_SPACE_ID || !process.env.CONTENTFUL_ACCESS_TOKEN) {
-        throw new Error('Missing Contentful environment variables: CONTENTFUL_SPACE_ID or CONTENTFUL_ACCESS_TOKEN');
+    const spaceId = process.env.CONTENTFUL_SPACE_ID;
+    const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN;
+
+    if (!spaceId || !accessToken) {
+        console.error('Contentful Error: Missing CONTENTFUL_SPACE_ID or CONTENTFUL_ACCESS_TOKEN');
+        return null;
     }
 
-    client = createClient({
-        space: process.env.CONTENTFUL_SPACE_ID,
-        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-    });
-    return client;
+    try {
+        client = createClient({
+            space: spaceId,
+            accessToken: accessToken,
+        });
+        return client;
+    } catch (error) {
+        console.error('Contentful Error: Failed to create client', error);
+        return null;
+    }
 }
 
 export async function getBlogPosts(locale: string = 'en') {
     try {
         const contentful = getClient();
+        if (!contentful) return [];
+
         const response = await contentful.getEntries({
             content_type: 'blogPost',
             locale: locale === 'ja' ? 'ja' : 'en-US',
@@ -36,6 +47,8 @@ export async function getBlogPosts(locale: string = 'en') {
 export async function getBlogPostBySlug(slug: string, locale: string = 'en') {
     try {
         const contentful = getClient();
+        if (!contentful) return null;
+
         const response = await contentful.getEntries({
             content_type: 'blogPost',
             'fields.slug': slug,
