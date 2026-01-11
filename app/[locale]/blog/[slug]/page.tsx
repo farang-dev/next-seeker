@@ -8,6 +8,45 @@ import { ChevronLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getTranslations } from 'next-intl/server';
 import BlogCTA from '@/components/blog/blog-cta';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+    params
+}: {
+    params: Promise<{ locale: string; slug: string }>
+}): Promise<Metadata> {
+    const { locale, slug } = await params;
+    const post = await getBlogPostBySlug(slug, locale);
+
+    if (!post) return {};
+
+    const imageUrl = post.featuredImage?.fields?.file?.url;
+
+    return {
+        title: post.title,
+        description: post.description || post.title,
+        alternates: {
+            canonical: locale === 'en' ? `/blog/${slug}` : `/${locale}/blog/${slug}`,
+            languages: {
+                'en': `/blog/${slug}`,
+                'ja': `/ja/blog/${slug}`,
+            },
+        },
+        openGraph: {
+            title: post.title,
+            description: post.description || post.title,
+            type: 'article',
+            publishedTime: post.publishedDate,
+            images: imageUrl ? [`https:${imageUrl}`] : [],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description: post.description || post.title,
+            images: imageUrl ? [`https:${imageUrl}`] : [],
+        },
+    };
+}
 
 export async function generateStaticParams() {
     try {

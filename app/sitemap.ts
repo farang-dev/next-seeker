@@ -25,8 +25,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Generate entries for static pages in all locales
     for (const locale of locales) {
         for (const page of staticPages) {
+            const isDefaultLocale = locale === 'en';
+            const path = isDefaultLocale ? page : `/${locale}${page}`;
             sitemapEntries.push({
-                url: `${baseUrl}/${locale}${page}`,
+                url: `${baseUrl}${path === '' ? '/' : path}`,
                 lastModified: new Date(),
                 changeFrequency: 'daily',
                 priority: page === '' ? 1 : 0.8,
@@ -43,7 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         enPosts.forEach((post: BlogPost) => {
             sitemapEntries.push({
-                url: `${baseUrl}/en/blog/${post.slug}`,
+                url: `${baseUrl}/blog/${post.slug}`,
                 lastModified: new Date(post.publishedDate || new Date()),
                 changeFrequency: 'weekly',
                 priority: 0.7,

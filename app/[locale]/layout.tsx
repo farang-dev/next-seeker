@@ -19,12 +19,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
   return {
     metadataBase: new URL('https://www.seeknext.online'),
-    title: t('metaTitle'),
+    title: {
+      template: `%s | ${t('title')}`,
+      default: t('metaTitle'),
+    },
     description: t('metaDescription'),
     alternates: {
-      canonical: `/${locale}`,
       languages: {
-        'en': '/en',
+        'en': '/',
         'ja': '/ja',
       },
     },

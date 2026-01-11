@@ -1,4 +1,22 @@
 import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+    params
+}: {
+    params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+    const { locale } = await params;
+    return {
+        alternates: {
+            canonical: `/${locale}/pricing`,
+            languages: {
+                'en': '/en/pricing',
+                'ja': '/ja/pricing',
+            },
+        },
+    };
+}
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Target } from "lucide-react";
 import Link from "next/link";

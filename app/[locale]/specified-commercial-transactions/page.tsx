@@ -1,6 +1,24 @@
 import { Target } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+    params
+}: {
+    params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+    const { locale } = await params;
+    return {
+        alternates: {
+            canonical: `/${locale}/specified-commercial-transactions`,
+            languages: {
+                'en': '/en/specified-commercial-transactions',
+                'ja': '/ja/specified-commercial-transactions',
+            },
+        },
+    };
+}
 
 export default async function CommercialTransactionsPage({
     params,

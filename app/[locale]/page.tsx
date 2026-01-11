@@ -5,6 +5,25 @@ import { getTranslations } from "next-intl/server";
 
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params;
+
+  return {
+    alternates: {
+      canonical: locale === 'en' ? '/' : `/${locale}`,
+      languages: {
+        'en': '/',
+        'ja': '/ja',
+      },
+    },
+  };
+}
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

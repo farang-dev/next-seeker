@@ -5,6 +5,28 @@ import { format, isValid } from 'date-fns';
 import { ja, enUS } from 'date-fns/locale';
 import { getTranslations } from 'next-intl/server';
 import BlogCTA from '@/components/blog/blog-cta';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+    params
+}: {
+    params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+    const { locale } = await params;
+    const t = await getTranslations('Blog');
+
+    return {
+        title: t('title'),
+        description: t('subtitle'),
+        alternates: {
+            canonical: locale === 'en' ? '/blog' : `/${locale}/blog`,
+            languages: {
+                'en': '/blog',
+                'ja': '/ja/blog',
+            },
+        },
+    };
+}
 
 export default async function BlogPage({
     params,
