@@ -89,12 +89,13 @@ export async function POST(req: NextRequest) {
             }
 
             // Record the payment
-            if (session.payment_intent) {
+            const paymentId = (session.payment_intent as string) || (session.subscription as string);
+            if (paymentId) {
                 const { error: paymentError } = await supabaseAdmin
                     .from('payments')
                     .insert({
                         user_id: userId,
-                        stripe_payment_intent_id: session.payment_intent as string,
+                        stripe_payment_intent_id: paymentId,
                         amount: session.amount_total || 0,
                         currency: session.currency || 'usd',
                         status: 'completed',
@@ -109,9 +110,44 @@ export async function POST(req: NextRequest) {
             break;
         }
 
-        case 'payment_intent.payment_failed': {
-            const paymentIntent = event.data.object as Stripe.PaymentIntent;
-            console.error('Payment failed:', paymentIntent.id);
+        case 'customer.subscription.deleted': {
+            const subscription = event.data.object as Stripe.Subscription;
+            const customerId = subscription.customer as string;
+
+            // Find user by customer ID
+            const { data: profile, error: findError } = await supabaseAdmin
+                .from('profiles')
+                .select('id')
+                .eq('stripe_customer_id', customerId)
+                .single();
+
+            if (profile) {
+                await supabaseAdmin
+                    .from('profiles')
+                    .update({ has_premium: false })
+                    .eq('id', profile.id);
+                console.log(`Premium access revoked for user ${profile.id} (subscription deleted)`);
+            }
+            break;
+        }
+
+        case 'invoice.payment_failed': {
+            const invoice = event.data.object as Stripe.Invoice;
+            const customerId = invoice.customer as string;
+
+            const { data: profile } = await supabaseAdmin
+                .from('profiles')
+                .select('id')
+                .eq('stripe_customer_id', customerId)
+                .single();
+
+            if (profile) {
+                await supabaseAdmin
+                    .from('profiles')
+                    .update({ has_premium: false })
+                    .eq('id', profile.id);
+                console.log(`Premium access revoked for user ${profile.id} (payment failed)`);
+            }
             break;
         }
 

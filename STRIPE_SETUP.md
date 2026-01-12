@@ -48,7 +48,8 @@ This migration will:
 3. Set the endpoint URL to: `https://your-domain.com/api/stripe/webhook`
 4. Select the following events to listen to:
    - `checkout.session.completed`
-   - `payment_intent.payment_failed`
+   - `customer.subscription.deleted`
+   - `invoice.payment_failed`
 5. Copy the webhook signing secret (starts with `whsec_`)
 6. Add it to your `.env.local` as `STRIPE_WEBHOOK_SECRET`
 
@@ -98,13 +99,13 @@ This will give you a webhook secret starting with `whsec_` - use this for local 
 
 2. **Attempting 11th Application:**
    - PaywallDialog appears
-   - Shows $6 one-time payment option
+   - Shows $3 monthly subscription option
    - User clicks "Upgrade to Premium"
 
 3. **Stripe Checkout:**
    - User is redirected to Stripe Checkout
    - Enters payment details
-   - Completes $6 payment
+   - Completes $3 subscription payment
 
 4. **Webhook Processing:**
    - Stripe sends webhook to `/api/stripe/webhook`
@@ -114,13 +115,13 @@ This will give you a webhook secret starting with `whsec_` - use this for local 
 5. **Premium Access:**
    - User is redirected to success page
    - Can now add unlimited applications
-   - Premium status persists forever (one-time payment)
+   - Premium status remains active as long as subscription is paid
 
 ### Technical Implementation
 
 - **AddApplicationDialog:** Checks application count and premium status before allowing new applications
 - **PaywallDialog:** Beautiful modal that explains premium benefits and initiates Stripe checkout
-- **Checkout API:** Creates Stripe checkout session with $6 one-time payment
+- **Checkout API:** Creates Stripe checkout session with $3 monthly subscription
 - **Webhook API:** Processes successful payments and grants premium access
 - **Database:** Tracks premium status and payment history
 

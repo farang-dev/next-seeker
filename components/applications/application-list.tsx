@@ -38,7 +38,15 @@ import { createClient } from '@/lib/supabase/client';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
-export function ApplicationList({ applications, locale }: { applications: JobApplication[], locale: string }) {
+export function ApplicationList({
+    applications,
+    locale,
+    hasPremium = false
+}: {
+    applications: JobApplication[],
+    locale: string,
+    hasPremium?: boolean
+}) {
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState<string>('all');
     const [priorityFilter, setPriorityFilter] = useState<string>('all');
@@ -347,115 +355,129 @@ export function ApplicationList({ applications, locale }: { applications: JobApp
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {filteredApps.length > 0 ? (
-                            filteredApps.map((app) => (
-                                <TableRow
-                                    key={app.id}
-                                    className="cursor-pointer group"
-                                    onClick={() => router.push(`/${locale}/dashboard/applications/${app.id}`)}
-                                    data-state={selectedApps.has(app.id) ? "selected" : undefined}
-                                >
-                                    <TableCell
-                                        onClick={(e) => e.stopPropagation()}
+                        {filteredApps.length > 0 ?
+                            filteredApps.map((app) => {
+                                const isOverLimit = !hasPremium && (applications.findIndex(a => a.id === app.id) >= 10);
+
+                                return (
+                                    <TableRow
+                                        key={app.id}
                                         className={cn(
-                                            "transition-all duration-300 ease-in-out p-0",
-                                            isSelectionMode ? "w-12 px-4 opacity-100" : "w-0 opacity-0 overflow-hidden"
+                                            "cursor-pointer group",
+                                            isOverLimit && "opacity-70 grayscale-[0.5]"
                                         )}
+                                        onClick={() => router.push(`/${locale}/dashboard/applications/${app.id}`)}
+                                        data-state={selectedApps.has(app.id) ? "selected" : undefined}
                                     >
-                                        <Checkbox
-                                            checked={selectedApps.has(app.id)}
-                                            onCheckedChange={() => toggleSelection(app.id)}
-                                            className={cn(!isSelectionMode && "hidden")}
-                                        />
-                                    </TableCell>
-                                    <TableCell className="font-semibold truncate">
-                                        {app.company_name}
-                                    </TableCell>
-                                    <TableCell className="text-muted-foreground truncate">
-                                        {app.job_title}
-                                    </TableCell>
-                                    <TableCell onClick={(e) => e.stopPropagation()}>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <button className="focus:outline-none">
-                                                    <Badge variant="outline" className={cn("px-2 py-0 h-5 cursor-pointer hover:ring-2 hover:ring-primary/20", getStatusColor(app.status))}>
-                                                        {tStatus(app.status)}
-                                                    </Badge>
-                                                </button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent align="start">
-                                                {(Object.keys(statusOrder) as ApplicationStatus[]).map((status) => (
-                                                    <DropdownMenuItem
-                                                        key={status}
-                                                        onClick={() => handleUpdate(app.id, { status })}
-                                                        className={cn(app.status === status && "bg-accent font-medium")}
-                                                    >
-                                                        <Badge variant="outline" className={cn("px-2 py-0 h-5 mr-2", getStatusColor(status))}>
-                                                            {tStatus(status)}
-                                                        </Badge>
-                                                    </DropdownMenuItem>
-                                                ))}
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                    </TableCell>
-                                    <TableCell onClick={(e) => e.stopPropagation()}>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <button className={cn("text-[14px] cursor-pointer hover:font-bold transition-all px-2 py-1 rounded-md hover:bg-accent", getPriorityColor(app.priority))}>
-                                                    {tPriority(app.priority)}
-                                                </button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent align="start">
-                                                {(Object.keys(priorityOrder) as ApplicationPriority[]).map((priority) => (
-                                                    <DropdownMenuItem
-                                                        key={priority}
-                                                        onClick={() => handleUpdate(app.id, { priority })}
-                                                        className={cn(app.priority === priority && "bg-accent font-medium", getPriorityColor(priority))}
-                                                    >
-                                                        {tPriority(priority)}
-                                                    </DropdownMenuItem>
-                                                ))}
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                    </TableCell>
-                                    <TableCell className="text-muted-foreground whitespace-nowrap">
-                                        {new Date(app.application_date).toLocaleDateString(locale)}
-                                    </TableCell>
-                                    <TableCell className="text-right">
-                                        <div onClick={(e) => e.stopPropagation()}>
+                                        <TableCell
+                                            onClick={(e) => e.stopPropagation()}
+                                            className={cn(
+                                                "transition-all duration-300 ease-in-out p-0",
+                                                isSelectionMode ? "w-12 px-4 opacity-100" : "w-0 opacity-0 overflow-hidden"
+                                            )}
+                                        >
+                                            <Checkbox
+                                                checked={selectedApps.has(app.id)}
+                                                onCheckedChange={() => toggleSelection(app.id)}
+                                                className={cn(!isSelectionMode && "hidden")}
+                                            />
+                                        </TableCell>
+                                        <TableCell className="font-semibold truncate">
+                                            {app.company_name}
+                                        </TableCell>
+                                        <TableCell className="text-muted-foreground truncate">
+                                            {app.job_title}
+                                        </TableCell>
+                                        <TableCell onClick={(e) => e.stopPropagation()}>
                                             <DropdownMenu>
-                                                <DropdownMenuTrigger asChild>
-                                                    <Button variant="ghost" size="icon">
-                                                        <MoreHorizontal className="h-4 w-4" />
-                                                    </Button>
+                                                <DropdownMenuTrigger asChild disabled={isOverLimit}>
+                                                    <button className={cn("focus:outline-none", isOverLimit && "cursor-not-allowed")}>
+                                                        <Badge variant="outline" className={cn("px-2 py-0 h-5 border-slate-500/20", getStatusColor(app.status))}>
+                                                            {tStatus(app.status)}
+                                                        </Badge>
+                                                    </button>
                                                 </DropdownMenuTrigger>
-                                                <DropdownMenuContent align="end">
-                                                    <DropdownMenuItem onClick={() => router.push(`/${locale}/dashboard/applications/${app.id}`)}>
-                                                        {t('viewDetails')}
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuItem onClick={() => setEditingApp(app)}>
-                                                        {t('editApplication')}
-                                                    </DropdownMenuItem>
-                                                    <DropdownMenuSeparator />
-                                                    <DropdownMenuItem
-                                                        onClick={() => handleDelete([app.id])}
-                                                        className="text-red-600 focus:text-red-600"
-                                                    >
-                                                        {t('delete')}
-                                                    </DropdownMenuItem>
+                                                <DropdownMenuContent align="start">
+                                                    {(Object.keys(statusOrder) as ApplicationStatus[]).map((status) => (
+                                                        <DropdownMenuItem
+                                                            key={status}
+                                                            onClick={() => handleUpdate(app.id, { status })}
+                                                            className={cn(app.status === status && "bg-accent font-medium")}
+                                                        >
+                                                            <Badge variant="outline" className={cn("px-2 py-0 h-5 mr-2", getStatusColor(status))}>
+                                                                {tStatus(status)}
+                                                            </Badge>
+                                                        </DropdownMenuItem>
+                                                    ))}
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                        ) : (
+                                        </TableCell>
+                                        <TableCell onClick={(e) => e.stopPropagation()}>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild disabled={isOverLimit}>
+                                                    <button className={cn(
+                                                        "text-[14px] px-2 py-1 rounded-md transition-all",
+                                                        isOverLimit ? "cursor-not-allowed opacity-50" : "cursor-pointer hover:font-bold hover:bg-accent",
+                                                        getPriorityColor(app.priority)
+                                                    )}>
+                                                        {tPriority(app.priority)}
+                                                    </button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent align="start">
+                                                    {(Object.keys(priorityOrder) as ApplicationPriority[]).map((priority) => (
+                                                        <DropdownMenuItem
+                                                            key={priority}
+                                                            onClick={() => handleUpdate(app.id, { priority })}
+                                                            className={cn(app.priority === priority && "bg-accent font-medium", getPriorityColor(priority))}
+                                                        >
+                                                            {tPriority(priority)}
+                                                        </DropdownMenuItem>
+                                                    ))}
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </TableCell>
+                                        <TableCell className="text-muted-foreground whitespace-nowrap">
+                                            {new Date(app.application_date).toLocaleDateString(locale)}
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            <div onClick={(e) => e.stopPropagation()}>
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger asChild>
+                                                        <Button variant="ghost" size="icon">
+                                                            <MoreHorizontal className="h-4 w-4" />
+                                                        </Button>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent align="end">
+                                                        <DropdownMenuItem onClick={() => router.push(`/${locale}/dashboard/applications/${app.id}`)}>
+                                                            {t('viewDetails')}
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem
+                                                            onClick={() => setEditingApp(app)}
+                                                            disabled={isOverLimit}
+                                                        >
+                                                            {t('editApplication')}
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuSeparator />
+                                                        <DropdownMenuItem
+                                                            onClick={() => handleDelete([app.id])}
+                                                            className="text-red-600 focus:text-red-600"
+                                                        >
+                                                            {t('delete')}
+                                                        </DropdownMenuItem>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })
+                            :
                             <TableRow>
                                 <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
                                     {t('empty')}
                                 </TableCell>
                             </TableRow>
-                        )}
+                        }
                     </TableBody>
                 </Table>
             </div>

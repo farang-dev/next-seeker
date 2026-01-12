@@ -12,7 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Lock, Sparkles, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface PaywallDialogProps {
     open: boolean;
@@ -23,6 +23,8 @@ export function PaywallDialog({ open, onOpenChange }: PaywallDialogProps) {
     const [loading, setLoading] = useState(false);
 
     const locale = useLocale();
+    const t = useTranslations('Paywall');
+    const tPricing = useTranslations('Pricing');
 
     const handleUpgrade = async () => {
         setLoading(true);
@@ -63,10 +65,10 @@ export function PaywallDialog({ open, onOpenChange }: PaywallDialogProps) {
                         <Lock className="h-6 w-6 text-white" />
                     </div>
                     <DialogTitle className="text-center text-2xl">
-                        Unlock Unlimited Applications
+                        {t('title')}
                     </DialogTitle>
                     <DialogDescription className="text-center text-base pt-2">
-                        You've reached the free limit of 10 applications. Upgrade to premium for unlimited tracking!
+                        {t('description')}
                     </DialogDescription>
                 </DialogHeader>
 
@@ -75,37 +77,21 @@ export function PaywallDialog({ open, onOpenChange }: PaywallDialogProps) {
                         <div className="flex items-center gap-3 mb-4">
                             <Sparkles className="h-6 w-6 text-amber-600" />
                             <div>
-                                <h3 className="font-bold text-lg">Premium Access</h3>
-                                <p className="text-3xl font-bold text-amber-600">$6</p>
-                                <p className="text-sm text-muted-foreground">One-time payment</p>
+                                <h3 className="font-bold text-lg">{tPricing('premium.name')}</h3>
+                                <p className="text-3xl font-bold text-amber-600">{tPricing('premium.price')}</p>
+                                <p className="text-sm text-muted-foreground">{tPricing('premium.period')}</p>
                             </div>
                         </div>
 
                         <div className="space-y-3">
-                            <div className="flex items-start gap-2">
-                                <CheckCircle2 className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-sm">
-                                    <strong>Unlimited applications</strong> - Track as many job opportunities as you need
-                                </p>
-                            </div>
-                            <div className="flex items-start gap-2">
-                                <CheckCircle2 className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-sm">
-                                    <strong>All features unlocked</strong> - Full access to notes, interviews, and tracking
-                                </p>
-                            </div>
-                            <div className="flex items-start gap-2">
-                                <CheckCircle2 className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-sm">
-                                    <strong>Lifetime access</strong> - Pay once, use forever
-                                </p>
-                            </div>
-                            <div className="flex items-start gap-2">
-                                <CheckCircle2 className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                                <p className="text-sm">
-                                    <strong>Priority support</strong> - Get help when you need it
-                                </p>
-                            </div>
+                            {([0, 1, 2, 3] as const).map((i) => (
+                                <div key={i} className="flex items-start gap-2">
+                                    <CheckCircle2 className="h-5 w-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                                    <p className="text-sm">
+                                        {tPricing(`premium.features.${i}`)}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
@@ -121,7 +107,7 @@ export function PaywallDialog({ open, onOpenChange }: PaywallDialogProps) {
                         className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold"
                         size="lg"
                     >
-                        {loading ? 'Redirecting to checkout...' : 'Upgrade to Premium'}
+                        {loading ? t('processing') : t('cta')}
                     </Button>
                     <Button
                         onClick={() => onOpenChange(false)}
@@ -129,7 +115,7 @@ export function PaywallDialog({ open, onOpenChange }: PaywallDialogProps) {
                         className="w-full"
                         disabled={loading}
                     >
-                        Maybe later
+                        {t('maybeLater')}
                     </Button>
                 </DialogFooter>
             </DialogContent>

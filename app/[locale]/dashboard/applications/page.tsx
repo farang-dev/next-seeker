@@ -88,6 +88,7 @@ export default async function ApplicationsPage({
             <ApplicationList
                 applications={applications || []}
                 locale={locale}
+                hasPremium={hasPremium}
             />
         </div>
     );

@@ -52,7 +52,7 @@ export default async function PricingPage({
         {
             name: t("premium.name"),
             price: t("premium.price"),
-            period: `/${t("premium.period")}`,
+            period: t("premium.period"),
             description: t("premium.description"),
             features: [
                 t("premium.features.0"),

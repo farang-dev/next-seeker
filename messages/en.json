@@ -259,14 +259,14 @@
         },
         "premium": {
             "name": "Unlimited Premium",
-            "price": "$6",
-            "period": "One-time",
+            "price": "$3",
+            "period": "/ month",
             "description": "Unlock all features and control your career.",
             "features": [
                 "Unlimited job applications",
                 "Advanced career goal tracking",
                 "Priority support",
-                "Lifetime access"
+                "Exclusive career insights"
             ]
         },
         "cta": "Get Started",
@@ -341,5 +341,12 @@
         "ctaTitle": "Ready to supercharge your career?",
         "ctaSubtitle": "Join 100+ professionals using Next Seeker to track applications and achieve their career goals.",
         "ctaButton": "Get Started for Free"
+    },
+    "Paywall": {
+        "title": "Unlock Unlimited Applications",
+        "description": "You've reached the free limit of 10 applications. Upgrade to premium for unlimited tracking!",
+        "cta": "Upgrade to Premium",
+        "maybeLater": "Maybe later",
+        "processing": "Redirecting to checkout..."
     }
 }

@@ -75,16 +75,19 @@ export async function POST(req: NextRequest) {
         const session = await stripe.checkout.sessions.create({
             customer: customerId,
             payment_method_types: ['card'],
-            mode: 'payment',
+            mode: 'subscription',
             line_items: [
                 {
                     price_data: {
                         currency: 'usd',
                         product_data: {
-                            name: 'Premium Access - Unlimited Applications',
-                            description: 'One-time payment for unlimited job application tracking',
+                            name: 'Next Seeker Premium Plan',
+                            description: 'Monthly subscription for unlimited job application tracking and career goal insights',
                         },
-                        unit_amount: 600, // $6.00 in cents
+                        unit_amount: 300, // $3.00 in cents
+                        recurring: {
+                            interval: 'month',
+                        },
                     },
                     quantity: 1,
                 },
