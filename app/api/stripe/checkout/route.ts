@@ -94,6 +94,7 @@ export async function POST(req: NextRequest) {
             ],
             success_url: `${req.headers.get('origin')}/${locale}/dashboard/payment-success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${req.headers.get('origin')}${returnPath}`,
+            allow_promotion_codes: true,
             metadata: {
                 user_id: user.id,
             },
