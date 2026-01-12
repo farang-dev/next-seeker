@@ -13,23 +13,100 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select';
-import { Moon, Sun, Laptop, Languages } from 'lucide-react';
+import { Moon, Sun, Laptop, Languages, CreditCard, Sparkles, ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { toast } from 'sonner';
 
-export function SettingsForm({ locale }: { locale: string }) {
+export function SettingsForm({
+    locale,
+    hasPremium = false,
+    hasStripeCustomer = false
+}: {
+    locale: string,
+    hasPremium?: boolean,
+    hasStripeCustomer?: boolean
+}) {
     const { theme, setTheme } = useTheme();
     const router = useRouter();
     const pathname = usePathname();
     const t = useTranslations('Settings');
+    const [loadingPortal, setLoadingPortal] = useState(false);
 
     const handleLanguageChange = (newLocale: string) => {
-        // usePathname from i18n/navigation returns path WITHOUT locale.
-        // router.replace with {locale} option handles the switch correctly.
         router.replace(pathname, { locale: newLocale as any });
+    };
+
+    const handleManageSubscription = async () => {
+        setLoadingPortal(true);
+        try {
+            const response = await fetch('/api/stripe/portal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    locale,
+                    returnPath: '/dashboard/settings',
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to open portal');
+            }
+
+            if (data.url) {
+                window.location.href = data.url;
+            }
+        } catch (error: any) {
+            console.error('Portal error:', error);
+            toast.error(error.message || 'Failed to open subscription management');
+            setLoadingPortal(false);
+        }
     };
 
     return (
         <div className="space-y-6">
+            {/* Subscription Section for Premium Users */}
+            {hasPremium && hasStripeCustomer && (
+                <Card className="border-amber-200 dark:border-amber-800 bg-amber-50/30 dark:bg-amber-950/10">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Sparkles className="h-5 w-5 text-amber-600" />
+                            {t('subscription')}
+                        </CardTitle>
+                        <CardDescription>{t('subscriptionDesc')}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-lg bg-background border">
+                            <div className="space-y-1">
+                                <p className="font-medium flex items-center gap-2">
+                                    <CreditCard className="h-4 w-4 text-muted-foreground" />
+                                    Next Seeker Premium
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                    {t('activeSubscription')}
+                                </p>
+                            </div>
+                            <Button
+                                onClick={handleManageSubscription}
+                                disabled={loadingPortal}
+                                variant="outline"
+                                className="gap-2"
+                            >
+                                {loadingPortal ? t('opening') : (
+                                    <>
+                                        {t('manageSubscription')}
+                                        <ExternalLink className="h-4 w-4" />
+                                    </>
+                                )}
+                            </Button>
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
+
             <Card>
                 <CardHeader>
                     <CardTitle className="flex items-center gap-2">
