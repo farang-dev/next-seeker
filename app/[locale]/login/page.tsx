@@ -43,7 +43,7 @@ export default function LoginPage() {
 
         try {
             if (mode === 'signup') {
-                const { error } = await supabase.auth.signUp({
+                const { data, error } = await supabase.auth.signUp({
                     email,
                     password,
                     options: {
@@ -54,7 +54,14 @@ export default function LoginPage() {
                     },
                 });
                 if (error) throw error;
-                toast.success(auth('signupSuccess'));
+
+                // If email confirmation is disabled, we get a session immediately
+                if (data.session) {
+                    router.push(`/${currentLocale}/dashboard`);
+                    router.refresh();
+                } else {
+                    toast.success(auth('signupSuccess'));
+                }
             } else if (mode === 'login') {
                 const { error } = await supabase.auth.signInWithPassword({
                     email,
