@@ -25,6 +25,10 @@
         "passwordError": "Password must be at least 8 characters long and include numbers and symbols.",
         "userProfile": "User Profile",
         "signOut": "Sign Out",
+        "upgrade": "Upgrade to Premium",
+        "premium": "Premium",
+        "sidebarUpgradeDesc": "Unlock unlimited applications and more.",
+        "upgradeNow": "Upgrade Now",
         "email": "Email Address",
         "password": "Password",
         "processing": "Processing...",
@@ -74,7 +78,14 @@
         "prepTip": "Interview Prep Tip",
         "tipText": "\"Always align your answers with your 5-year goal to demonstrate foresight and stability.\"",
         "readyQuestion": "Ready for your next interview?",
-        "readyDesc": "Update your 'Questions for the Company' list for active applications."
+        "readyDesc": "Update your 'Questions for the Company' list for active applications.",
+        "premiumCTA": {
+            "badge": "Growth Plan",
+            "title": "Unlock Unlimited Potential",
+            "description": "You're currently on the free plan which is limited to 10 applications. Upgrade to Premium for unlimited tracking, detailed insights, and priority support.",
+            "button": "Explore Premium Benefits",
+            "usage": "{count} / 10 applications used"
+        }
     },
     "Goals": {
         "title": "Career Goals",

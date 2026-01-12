@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 import { GoalsOverview } from '@/components/dashboard/goals-overview';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Briefcase, CheckCircle2, Send } from 'lucide-react';
+import { Briefcase, CheckCircle2, Send, Sparkles, ArrowRight } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -49,13 +49,15 @@ export default async function DashboardPage({
         },
     ];
 
-    // Fetch User Profile for name
+    // Fetch User Profile
     const { data: { user } } = await supabase.auth.getUser();
     const { data: profile } = await supabase
         .from('profiles')
-        .select('full_name')
+        .select('full_name, has_premium')
         .eq('id', user?.id)
         .single();
+
+    const hasPremium = profile?.has_premium || false;
 
     const hour = new Date().getHours();
     let greetingKey = 'welcome';
@@ -94,6 +96,44 @@ export default async function DashboardPage({
                     </Card>
                 ))}
             </div>
+
+            {!hasPremium && (
+                <Card className="border-amber-200 dark:border-amber-800 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/10 overflow-hidden relative">
+                    <div className="absolute top-0 right-0 p-4 opacity-10">
+                        <Sparkles className="h-24 w-24 text-amber-600" />
+                    </div>
+                    <CardHeader className="pb-2">
+                        <div className="flex items-center gap-2 text-amber-600 dark:text-amber-500 mb-1">
+                            <Sparkles className="h-5 w-5" />
+                            <span className="text-xs font-bold uppercase tracking-wider">{t('premiumCTA.badge')}</span>
+                        </div>
+                        <CardTitle className="text-2xl">{t('premiumCTA.title')}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="pb-6">
+                        <p className="text-muted-foreground max-w-2xl mb-4">
+                            {t('premiumCTA.description')}
+                        </p>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <Button asChild className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white border-0 shadow-md">
+                                <Link href={`/${locale}/dashboard/settings`} className="flex items-center gap-2">
+                                    {t('premiumCTA.button')}
+                                </Link>
+                            </Button>
+                            <div className="flex flex-col">
+                                <span className="text-sm font-medium">
+                                    {t('premiumCTA.usage', { count: apps?.length || 0 })}
+                                </span>
+                                <div className="w-48 h-1.5 bg-muted rounded-full mt-1 overflow-hidden">
+                                    <div
+                                        className="h-full bg-amber-500 rounded-full transition-all duration-1000"
+                                        style={{ width: `${Math.min(((apps?.length || 0) / 10) * 100, 100)}%` }}
+                                    ></div>
+                                </div>
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+            )}
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <Card className="lg:col-span-4">

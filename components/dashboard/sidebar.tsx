@@ -9,12 +9,15 @@ import {
     Target,
     Settings,
     LogOut,
-    Newspaper
+    Newspaper,
+    Sparkles
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { PaywallDialog } from '@/components/applications/paywall-dialog';
 
 const navItems = [
     { icon: LayoutDashboard, label: 'dashboard', href: '/dashboard' },
@@ -24,12 +27,12 @@ const navItems = [
     { icon: Settings, label: 'settings', href: '/dashboard/settings' },
 ];
 
-export function Sidebar({ locale }: { locale: string }) {
+export function Sidebar({ locale, hasPremium = false }: { locale: string, hasPremium?: boolean }) {
     const pathname = usePathname();
     const router = useRouter();
     const supabase = createClient();
     const t = useTranslations('Common');
-
+    const [paywallOpen, setPaywallOpen] = useState(false);
     const handleSignOut = async () => {
         await supabase.auth.signOut();
         router.refresh();
@@ -73,8 +76,34 @@ export function Sidebar({ locale }: { locale: string }) {
                         </Link>
                     );
                 })}
+
+                {!hasPremium && (
+                    <div className="mt-8 px-2">
+                        <div className="p-4 rounded-lg bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20">
+                            <h4 className="text-xs font-bold text-amber-700 dark:text-amber-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                <Sparkles className="w-3 h-3" />
+                                {t('premium')}
+                            </h4>
+                            <p className="text-[11px] text-muted-foreground mb-3 leading-tight">
+                                {t('sidebarUpgradeDesc')}
+                            </p>
+                            <button
+                                onClick={() => setPaywallOpen(true)}
+                                className="w-full py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-md transition-colors shadow-sm"
+                            >
+                                {t('upgradeNow')}
+                            </button>
+                        </div>
+                    </div>
+                )}
             </nav>
-            <div className="p-4 border-t">
+            <div className="p-4 border-t flex flex-col gap-2">
+                {hasPremium && (
+                    <div className="px-3 py-1 flex items-center gap-2 text-xs font-bold text-amber-600 dark:text-amber-500">
+                        <Sparkles className="w-3 h-3" />
+                        PREMIUM ACCOUNT
+                    </div>
+                )}
                 <button
                     onClick={handleSignOut}
                     className="flex items-center gap-3 px-3 py-2 w-full rounded-md text-sm font-medium text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
@@ -83,6 +112,11 @@ export function Sidebar({ locale }: { locale: string }) {
                     {t('logout')}
                 </button>
             </div>
+
+            <PaywallDialog
+                open={paywallOpen}
+                onOpenChange={setPaywallOpen}
+            />
         </aside>
     );
 }

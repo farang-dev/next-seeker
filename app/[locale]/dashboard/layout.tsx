@@ -21,11 +21,17 @@ export default async function DashboardLayout({
         redirect(`/${locale}/login`);
     }
 
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('has_premium')
+        .eq('id', user.id)
+        .single();
+
     return (
         <div className="flex min-h-screen bg-background">
-            <Sidebar locale={locale} />
+            <Sidebar locale={locale} hasPremium={profile?.has_premium || false} />
             <div className="flex-1 flex flex-col">
-                <Header user={user} locale={locale} />
+                <Header user={user} locale={locale} hasPremium={profile?.has_premium || false} />
                 <main className="flex-1 overflow-y-auto p-4 md:p-8 pt-6">
                     {children}
                 </main>
