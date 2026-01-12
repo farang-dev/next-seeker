@@ -27,12 +27,16 @@ export async function POST(req: Request) {
         }
 
         const { locale, returnPath } = await req.json();
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+        const origin = req.headers.get('origin') || 'http://localhost:3000';
+
+        // Prepare return URL with locale prefix if needed
+        const localePrefix = locale === 'en' ? '' : `/${locale}`;
+        const fullReturnPath = `${localePrefix}${returnPath || '/dashboard/settings'}`;
 
         // Create portal session
         const portalSession = await stripe.billingPortal.sessions.create({
             customer: profile.stripe_customer_id,
-            return_url: `${baseUrl}${returnPath || '/dashboard/settings'}`,
+            return_url: `${origin}${fullReturnPath}`,
         });
 
         return NextResponse.json({ url: portalSession.url });
