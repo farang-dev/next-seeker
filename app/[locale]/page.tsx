@@ -39,7 +39,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -z-10" />
 
           <div className="container px-4 md:px-6 mx-auto">
-            <div className="grid lg:grid-cols-2 items-center gap-8 lg:gap-20 xl:gap-24">
+            <div className="grid lg:grid-cols-[42%_58%] items-center gap-8 lg:gap-20 xl:gap-24">
               {/* Left Column: Text Content */}
               <div className="flex flex-col space-y-8 text-left animate-in fade-in slide-in-from-left-8 duration-1000">
                 <div className="space-y-4">
@@ -59,8 +59,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                   <Button asChild size="lg" className="px-10 h-14 text-lg font-semibold rounded-full shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all">
                     <Link href={`/${locale}/login`}>{landing('hero.ctaFree')}</Link>
                   </Button>
-                  <Button variant="outline" size="lg" className="px-10 h-14 text-lg font-semibold rounded-full hover:bg-muted/50 transition-all">
-                    {landing('hero.ctaDemo')}
+                  <Button asChild variant="outline" size="lg" className="px-10 h-14 text-lg font-semibold rounded-full hover:bg-muted/50 transition-all">
+                    <Link
+                      href={locale === 'ja' ? 'https://youtu.be/e4NtCk-xhsQ' : 'https://youtu.be/4AEgZQKkLlc'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {landing('hero.ctaDemo')}
+                    </Link>
                   </Button>
                 </div>
 
@@ -79,7 +85,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </div>
 
               {/* Right Column: Image Content */}
-              <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200">
+              <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 lg:scale-110 lg:pl-10">
                 <div className="relative z-10 rounded-2xl overflow-hidden border border-muted shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] bg-background">
                   <img
                     src={`/images/dashboard-${locale}.png`}
