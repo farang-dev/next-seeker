@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Target, Briefcase, TrendingUp, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 import Header from "@/components/layout/header";
@@ -87,9 +88,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {/* Right Column: Image Content */}
               <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200 lg:scale-110 lg:pl-10">
                 <div className="relative z-10 rounded-2xl overflow-hidden border border-muted shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] bg-background">
-                  <img
+                  <Image
                     src={`/images/dashboard-${locale}.png`}
-                    alt="Next Seeker Dashboard Preview"
+                    alt={locale === 'ja' ? "Next Seeker 転職管理ダッシュボードのプレビュー - 応募リストを一括管理" : "Next Seeker Dashboard Preview - Unified Job Application Tracker"}
+                    width={1200}
+                    height={800}
+                    priority
                     className="w-full h-auto object-cover transform hover:scale-[1.02] transition-transform duration-700"
                   />
                 </div>
