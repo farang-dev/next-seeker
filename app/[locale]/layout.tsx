@@ -37,9 +37,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         'ja': '/ja',
       },
     },
-    icons: {
-      icon: '/favicon.png',
-      apple: '/favicon.png',
+    appleWebApp: {
+      title: 'Next Seeker',
+      statusBarStyle: 'default',
     },
     openGraph: {
       title: t('metaTitle'),
